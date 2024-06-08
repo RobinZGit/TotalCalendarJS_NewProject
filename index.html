@@ -148,7 +148,8 @@
  
               //================  ХОККЕЙ - РУКИ
               glTrainings[ind]
-let v = `
+        */      
+let glTrainings_ind = `
 {
 "name": "ХОККЕЙ - РУКИ"
 ,
@@ -161,9 +162,22 @@ let v = `
     }
     `
 
-*/
-function oneOperation(aParams){
-  return 1
+
+
+async function oneOperation(oParams){
+  //ASYNC oneOperation( ncount=> 400,operation => "do", sname=>"ДЕЙСТВИЕ ДРИБЛИНГА", ndelay=>1500, sunit=>"мсек" )
+  //- ищем иднекс и значение ключа в glTrainings[ind].do..key==sname
+  for(key in glTrainings_ind.do)
+    if (key == oParams["делать"]) {
+      //- если нашли  i, arr - цикл по arr  !! AWAIT !! - рекурсивный вызов oneOperation и таймаут на ndelay
+        for(let i =0; i<glTrainings_ind.do[key].length; i++)
+          await oneOperation(glTrainings_ind.do[key][i]);
+        await setTimeout(()=>{},oParams["задержка"]);//!! units+++
+        return;
+     }    
+  //- если не нашли - сказать или показать sname, мб вычленив и показав ссылки. 
+  alert(oParams.name);
+  return; 
 }
 
 
@@ -2200,7 +2214,7 @@ END:VEVENT\n`
        }
     }
     `
-    try {alert(JSON.parse(v))  } catch(e) {alert(e)}
+    try {alert(JSON.stringify(JSON.parse(v)))  } catch(e) {alert(e)}
     
     
     alert('все проходит');
