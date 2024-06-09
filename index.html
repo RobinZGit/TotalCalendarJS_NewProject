@@ -15,7 +15,13 @@
 </head>
  
 <body  onload="loadTrainData()" >
-
+  
+  ===≈=========== NEW ===========
+  
+  <select id="selectAllTrainNew"  style="height:100px;width:100%" onchange="onSelectTrain(this.selectedIndex,this.options[this.selectedIndex].text);" ></select>
+  <button id="idModalButtonOkNew" style="height:50px;width:49%" onclick="clickNew()"> OK </button>
+  <p></p>
+  ===============================
 <!--
 <button id="ttt" style="float:right;height:100px;width:25%" onclick="test()">test </button>
 <textarea id="idTestText" style="width:100%;height:400px;" > </textarea>
@@ -178,6 +184,10 @@ async function oneOperation(oParams){
   //- если не нашли - сказать или показать sname, мб вычленив и показав ссылки. 
   alert(oParams.name);
   return; 
+}
+
+function clickNew(){
+  alert(1)
 }
 
 
