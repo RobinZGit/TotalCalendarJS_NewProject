@@ -179,6 +179,8 @@ async function oneOperation(oParams){
     if (key == oParams["делать"]) {
       //- если нашли  i, arr - цикл по arr  !! AWAIT !! - рекурсивный вызов oneOperation и таймаут на ndelay
         for(let i =0; i<glTrainings_ind["список дел"][key].length; i++)
+//.... проверить если glTrainings_ind["список дел"][key][i] объект то вызвать oneOperation в цикле по его колву с его объектом
+//....проверить если glTrainings_ind["список дел"][key][i] массив (объектов) то в цикле по нему вызвать oneOperation в цикле по его колву с его объектом
           await oneOperation(glTrainings_ind["список дел"][key][i]);
         await setTimeout(()=>{},oParams["задержка"]);//!! units+++
         return;
