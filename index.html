@@ -155,7 +155,8 @@
               //================  ХОККЕЙ - РУКИ
               glTrainings[ind]
         */      
-let glTrainings_ind = `
+let glTrainings = `
+[
 {
 "name": "ХОККЕЙ - РУКИ"
 ,
@@ -168,6 +169,7 @@ let glTrainings_ind = `
        ,
        "ТЕСТ ВЛОЖЕННОСТИ":[{"кол-во":2,"делать":[{   "кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"  }],"задержка":1500,"units":"мсек" }]
     }
+    ]
     `
 
 
@@ -213,7 +215,8 @@ async function oneOperation(oParams){
 
 
 function clickNew(){
-  alert(1)
+  oneOperation(JSON.parse(glTrainings)[0])
+  alert(  JSON.parse(glTrainings)[0] )
 }
 
 
@@ -2250,7 +2253,7 @@ END:VEVENT\n`
        }
     }
     `
-    try {alert(JSON.stringify(JSON.parse(v)))  } catch(e) {alert(e)}
+  //  try {alert(JSON.stringify(JSON.parse(v)))  } catch(e) {alert(e)}
     
     
     alert('все проходит');
