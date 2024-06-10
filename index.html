@@ -171,13 +171,16 @@ let glTrainings_ind = `
     `
 
 
-
+// oParams - объект вида{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}
+//           где "делать" - строка либо функция либо объект такого же вида либо массив объектов такого же вида
 async function oneOperation(oParams){
+  
   //ASYNC oneOperation( ncount=> 400,operation => "do", sname=>"ДЕЙСТВИЕ ДРИБЛИНГА", ndelay=>1500, sunit=>"мсек" )
   //- ищем иднекс и значение ключа в glTrainings[ind].do..key==sname
   for(key in glTrainings_ind["список дел"])
     if (key == oParams["делать"]) {
-      //- если нашли  i, arr - цикл по arr  !! AWAIT !! - рекурсивный вызов oneOperation и таймаут на ndelay
+      for (let jj=0, jj< oParams["кол-во"], jj++ ){
+        //- если нашли  i, arr - цикл по arr  !! AWAIT !! - рекурсивный вызов oneOperation и таймаут на ndelay
         for(let i =0; i<glTrainings_ind["список дел"]["делать"].length; i++)
           //проверить если glTrainings_ind["список дел"][key][i] массив (объектов) то в цикле по нему вызвать oneOperation в цикле по его колву с его объектом
           if (Array.isArray( glTrainings_ind["список дел"]["делать"][i] ))
@@ -194,12 +197,15 @@ async function oneOperation(oParams){
               await oneOperation(glTrainings_ind["список дел"]["делать"][i]);
                 
         await setTimeout(()=>{},oParams["задержка"]);//!! units+++
-        return;
-     }    
-  //- если не нашли - сказать или показать sname, мб вычленив и показав ссылки. 
-  //- если функция - все предыдущеео от ее результата выполнения
-  alert(oParams.name);
-  return; 
+        //return;
+      }  
+    } else
+      for (let jj=0, jj< oParams["кол-во"], jj++ ){
+        //- если не нашли - сказать или показать sname, мб вычленив и показав ссылки. 
+        //- если функция - все предыдущеео от ее результата выполнения
+        alert(oParams.name);
+       //return; 
+      }
 }
 
 function clickNew(){
