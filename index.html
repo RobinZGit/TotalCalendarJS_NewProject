@@ -172,7 +172,7 @@ let glTrainings_ind = `
 
 
 // oParams - объект вида{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}
-//           где "делать" - строка либо функция либо объект такого же вида либо массив объектов такого же вида
+//           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
 async function oneOperation(oParams){
   
   //ASYNC oneOperation( ncount=> 400,operation => "do", sname=>"ДЕЙСТВИЕ ДРИБЛИНГА", ndelay=>1500, sunit=>"мсек" )
@@ -190,8 +190,9 @@ async function oneOperation(oParams){
                 await oneOperation(glTrainings_ind["список дел"][oParams["делать"]][i][ii]);
           else  
            //проверить если glTrainings_ind["список дел"][key][i] объект то вызвать oneOperation в цикле по его колву с его объектом
+           //.. мб лишняя ветка..
             if ("делать" in glTrainings_ind["список дел"][oParams["делать"]][i])
-              for (let j=0, j< glTrainings_ind["список дел"][oParams["делать"]][i]["делать"]["кол-во"], j++ )
+              for (let j=0, j< glTrainings_ind["список дел"][oParams["делать"]][i]["кол-во"], j++ )
                 await oneOperation(glTrainings_ind["список дел"][oParams["делать"]][i]["делать"]);
             else
               await oneOperation(glTrainings_ind["список дел"][oParams["делать"]][i]);
