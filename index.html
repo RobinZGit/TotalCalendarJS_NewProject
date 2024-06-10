@@ -178,14 +178,26 @@ async function oneOperation(oParams){
   for(key in glTrainings_ind["список дел"])
     if (key == oParams["делать"]) {
       //- если нашли  i, arr - цикл по arr  !! AWAIT !! - рекурсивный вызов oneOperation и таймаут на ndelay
-        for(let i =0; i<glTrainings_ind["список дел"][key].length; i++)
-//.... проверить если glTrainings_ind["список дел"][key][i] объект то вызвать oneOperation в цикле по его колву с его объектом
-//....проверить если glTrainings_ind["список дел"][key][i] массив (объектов) то в цикле по нему вызвать oneOperation в цикле по его колву с его объектом
-          await oneOperation(glTrainings_ind["список дел"][key][i]);
+        for(let i =0; i<glTrainings_ind["список дел"]["делать"].length; i++)
+          //проверить если glTrainings_ind["список дел"][key][i] массив (объектов) то в цикле по нему вызвать oneOperation в цикле по его колву с его объектом
+          if (Array.isArray( glTrainings_ind["список дел"]["делать"][i] ))
+            for(let ii =0; ii<glTrainings_ind["список дел"]["делать"][i].length; ii++)
+              //цикл по колву
+              for (let j=0, j< glTrainings_ind["список дел"]["делать"][i]["кол-во"], j++ )
+                await oneOperation(glTrainings_ind["список дел"]["делать"][i][ii]);
+          else  
+           //проверить если glTrainings_ind["список дел"][key][i] объект то вызвать oneOperation в цикле по его колву с его объектом
+            if ("делать" in glTrainings_ind["список дел"]["делать"][i])
+              for (let j=0, j< glTrainings_ind["список дел"]["делать"][i]["делать"]["кол-во"], j++ )
+                await oneOperation(glTrainings_ind["список дел"]["делать"][i]["делать"]);
+            else
+              await oneOperation(glTrainings_ind["список дел"]["делать"][i]);
+                
         await setTimeout(()=>{},oParams["задержка"]);//!! units+++
         return;
      }    
   //- если не нашли - сказать или показать sname, мб вычленив и показав ссылки. 
+  //- если функция - все предыдущеео от ее результата выполнения
   alert(oParams.name);
   return; 
 }
