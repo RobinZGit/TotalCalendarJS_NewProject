@@ -179,39 +179,38 @@ async function oneOperation(oParams){
   //- ищем иднекс и значение ключа в glTrainings[ind].do..key==sname
   for(key in glTrainings_ind["список дел"])
     if (key == oParams["делать"]) {
-      for (let jj=0, jj< oParams["кол-во"], jj++ ){
+      for (let jj=0; jj< oParams["кол-во"]; jj++ ){
         //- если нашли  i, arr - цикл по arr  !! AWAIT !! - рекурсивный вызов oneOperation и таймаут на ndelay
         for(let i =0; i<glTrainings_ind["список дел"][oParams["делать"]].length; i++){
           //проверить если glTrainings_ind["список дел"][key][i] массив (объектов) то в цикле по нему вызвать oneOperation в цикле по его колву с его объектом
           if (Array.isArray( glTrainings_ind["список дел"][oParams["делать"]][i] ))
             for(let ii =0; ii<glTrainings_ind["список дел"][oParams["делать"]][i].length; ii++)
               //цикл по колву
-              for (let j=0, j< glTrainings_ind["список дел"][oParams["делать"]][i]["кол-во"], j++ )
+              for (let j=0; j< glTrainings_ind["список дел"][oParams["делать"]][i]["кол-во"]; j++ )
                 await oneOperation(glTrainings_ind["список дел"][oParams["делать"]][i][ii]);
           else  
            //проверить если glTrainings_ind["список дел"][key][i] объект то вызвать oneOperation в цикле по его колву с его объектом
            //.. мб лишняя ветка..
             if ("делать" in glTrainings_ind["список дел"][oParams["делать"]][i])
-              for (let j=0, j< glTrainings_ind["список дел"][oParams["делать"]][i]["кол-во"], j++ )
+              for (let j=0; j< glTrainings_ind["список дел"][oParams["делать"]][i]["кол-во"]; j++ )
                 await oneOperation(glTrainings_ind["список дел"][oParams["делать"]][i]["делать"]);
             else
               await oneOperation(glTrainings_ind["список дел"][oParams["делать"]][i]);
           }      
-          
           await setTimeout(()=>{},oParams["задержка"]);//!! units+++
           //return;
         }  
         return;
       } 
     
-    
-  for (let jj=0, jj< oParams["кол-во"], jj++ ){
+  for (let jj=0; jj< oParams["кол-во"]; jj++ ){
      //- если не нашли - сказать или показать sname, мб вычленив и показав ссылки. 
      //- если функция - все предыдущеео от ее результата выполнения
      alert(oParams.name);
      //return; 
   }
 }
+
 
 function clickNew(){
   alert(1)
