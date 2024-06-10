@@ -159,12 +159,14 @@ let glTrainings_ind = `
 {
 "name": "ХОККЕЙ - РУКИ"
 ,
-"do": { "ХОККЕЙ - РУКИ": [{"кол-во":1,"делать":"ЦИКЛ"}]
+"список дел": { "ХОККЕЙ - РУКИ": [{"кол-во":1,"делать":"ЦИКЛ"}]
         ,
         "ЦИКЛ": [{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}]
         ,
         "ДЕЙСТВИЕ ДРИБЛИНГА":[{"кол-во":1,"выбор 1 из":["Мяч вправо","Мяч влево","Мяч вперед","Мяч назад"], "в пропорциях":[1,1,1,1]}]
        }
+       ,
+       "ТЕСТ ВЛОЖЕННОСТИ":[{"кол-во":2,"делать":[{   "кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"  }],"задержка":1500,"units":"мсек" }]
     }
     `
 
@@ -173,11 +175,11 @@ let glTrainings_ind = `
 async function oneOperation(oParams){
   //ASYNC oneOperation( ncount=> 400,operation => "do", sname=>"ДЕЙСТВИЕ ДРИБЛИНГА", ndelay=>1500, sunit=>"мсек" )
   //- ищем иднекс и значение ключа в glTrainings[ind].do..key==sname
-  for(key in glTrainings_ind.do)
+  for(key in glTrainings_ind["список дел"])
     if (key == oParams["делать"]) {
       //- если нашли  i, arr - цикл по arr  !! AWAIT !! - рекурсивный вызов oneOperation и таймаут на ndelay
-        for(let i =0; i<glTrainings_ind.do[key].length; i++)
-          await oneOperation(glTrainings_ind.do[key][i]);
+        for(let i =0; i<glTrainings_ind["список дел"][key].length; i++)
+          await oneOperation(glTrainings_ind["список дел"][key][i]);
         await setTimeout(()=>{},oParams["задержка"]);//!! units+++
         return;
      }    
