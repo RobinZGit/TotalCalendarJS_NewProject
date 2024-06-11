@@ -160,7 +160,9 @@ let glTrainings =
 {
 "исходное дело": "ХОККЕЙ - РУКИ"
 ,
-"список дел": { "ХОККЕЙ - РУКИ": [{"кол-во":1,"делать":"ЦИКЛ"}]
+"список дел": { "ХОККЕЙ - РУКИ": [{"кол-во":1,"делать":"0ЦИКЛ","задержка":2500,"units":"мсек"},  {"кол-во":2,"делать":"1ЦИКЛ"   ,"задержка":2500,"units":"мсек" }]
+  ,
+        "1ЦИКЛ": [{"кол-во":4,"делать":"0ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"},    {"кол-во":4,"делать":"5555ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}]
         ,
         "ЦИКЛ": [{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}]
         ,
@@ -194,28 +196,28 @@ function oneOperation(index, oParams){
   for(key in glTrainings[index]["список дел"])
     //alert(key + " _ " + oParams["делать"] )
     if (key == oParams["делать"]) {
-      alert(5)
+      //alert(5)
       for (let jj=0; jj< oParams["кол-во"]; jj++ ){
         //- если нашли  i, arr - цикл по arr  !! AWAIT !! - рекурсивный вызов oneOperation и таймаут на ndelay
         
-        for(let i =0; i<glTrainings[0]["список дел"][oParams["делать"]].length; i++){
+        for(let i =0; i<glTrainings[index]["список дел"][oParams["делать"]].length; i++){
           //проверить если glTrainings_ind["список дел"][key][i] массив (объектов) то в цикле по нему вызвать oneOperation в цикле по его колву с его объектом
-          if (Array.isArray( glTrainings[0]["список дел"][oParams["делать"]][i] ))
-            for(let ii =0; ii<glTrainings[0]["список дел"][oParams["делать"]][i].length; ii++)
+          if (Array.isArray( glTrainings[index]["список дел"][oParams["делать"]][i] ))
+            for(let ii =0; ii<glTrainings[index]["список дел"][oParams["делать"]][i].length; ii++)
               //цикл по колву
-              for (let j=0; j< glTrainings[0]["список дел"][oParams["делать"]][i]["кол-во"]; j++ )
+              for (let j=0; j< glTrainings[index]["список дел"][oParams["делать"]][i]["кол-во"]; j++ )
                 //await 
-                oneOperation(index, glTrainings[0]["список дел"][oParams["делать"]][i][ii]);
+                oneOperation(index, glTrainings[index]["список дел"][oParams["делать"]][i][ii]);
           else  
            //проверить если glTrainings_ind["список дел"][key][i] объект то вызвать oneOperation в цикле по его колву с его объектом
            //.. мб лишняя ветка..
-            if ("делать" in glTrainings[0]["список дел"][oParams["делать"]][i])
-              for (let j=0; j< glTrainings[0]["список дел"][oParams["делать"]][i]["кол-во"]; j++ )
+            if ("делать" in glTrainings[index]["список дел"][oParams["делать"]][i])
+              for (let j=0; j< glTrainings[index]["список дел"][oParams["делать"]][i]["кол-во"]; j++ )
                 //await 
-                oneOperation(index, glTrainings[0]["список дел"][oParams["делать"]][i]["делать"]);
+                oneOperation(index, glTrainings[index]["список дел"][oParams["делать"]][i]["делать"]);
             else
               //await 
-              oneOperation(index, glTrainings[0]["список дел"][oParams["делать"]][i]);
+              oneOperation(index, glTrainings[index]["список дел"][oParams["делать"]][i]);
           }      
           
           //await 
@@ -229,7 +231,7 @@ function oneOperation(index, oParams){
   for (let jj=0; jj< oParams["кол-во"]; jj++ ){
      //- если не нашли - сказать или показать sname, мб вычленив и показав ссылки. 
      //- если функция - все предыдущеео от ее результата выполнения
-     alert(oParams.name);
+     alert(oParams["делать"]);
      //return; 
   }
   
