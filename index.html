@@ -177,11 +177,12 @@ let glTrainings = `
 //           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
 //async 
 function oneOperation(oParams){
-  
+  alert(" _ " + oParams["делать"] )
   //ASYNC oneOperation( ncount=> 400,operation => "do", sname=>"ДЕЙСТВИЕ ДРИБЛИНГА", ndelay=>1500, sunit=>"мсек" )
   //- ищем иднекс и значение ключа в glTrainings[ind].do..key==sname
   
   for(key in glTrainings[0]["список дел"])
+   // alert(key + " _ " + oParams["делать"] )
     if (key == oParams["делать"]) {
       alert(5)
       for (let jj=0; jj< oParams["кол-во"]; jj++ ){
@@ -227,7 +228,7 @@ function oneOperation(oParams){
 
 function clickNew(){
   alert(0)
-  oneOperation(JSON.parse(glTrainings)[0])
+  oneOperation(JSON.parse(glTrainings)[0]["список дел"]["ХОККЕЙ - РУКИ"][0])
 //  alert(  JSON.parse(glTrainings)[0] )
 }
 
