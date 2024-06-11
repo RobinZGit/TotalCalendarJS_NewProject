@@ -158,7 +158,7 @@
 let glTrainings = 
 [
 {
-"name": "ХОККЕЙ - РУКИ"
+"исходное дело": "ХОККЕЙ - РУКИ"
 ,
 "список дел": { "ХОККЕЙ - РУКИ": [{"кол-во":1,"делать":"ЦИКЛ"}]
         ,
@@ -176,14 +176,18 @@ let glTrainings =
 // oParams - объект вида{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}
 //           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
 //async 
-function oneOperation(indexOrObject,sName){
-  let oParams =  Number.isInteger(indexOrObject) ?   glTrainings[indexOrObject]["список дел"][sName]: indexOrObject;
+function oneOperation(index, pParams = null){
+  //если не передали pParams - это пускач, начало разбора, ищем исходное дело
+  let oParams =  pParams == null ?  glTrainings[index]["список дел"][glTrainings[index]["исходное дело"]]: pParams;
  
   //alert(oParams )
   //ASYNC oneOperation( ncount=> 400,operation => "do", sname=>"ДЕЙСТВИЕ ДРИБЛИНГА", ndelay=>1500, sunit=>"мсек" )
   //- ищем иднекс и значение ключа в glTrainings[ind].do..key==sname
   
-  for(key in glTrainings[0]["список дел"])
+  //for(key in glTrainings[index]["список дел"])
+    //alert(key + " _ " + oParams["делать"] )
+  //  if (key == oParams["делать"]) {
+  for(key in glTrainings[index]["список дел"])
     //alert(key + " _ " + oParams["делать"] )
     if (key == oParams["делать"]) {
       alert(5)
@@ -197,17 +201,17 @@ function oneOperation(indexOrObject,sName){
               //цикл по колву
               for (let j=0; j< glTrainings[0]["список дел"][oParams["делать"]][i]["кол-во"]; j++ )
                 //await 
-                oneOperation(glTrainings[0]["список дел"][oParams["делать"]][i][ii]);
+                oneOperation(index, glTrainings[0]["список дел"][oParams["делать"]][i][ii]);
           else  
            //проверить если glTrainings_ind["список дел"][key][i] объект то вызвать oneOperation в цикле по его колву с его объектом
            //.. мб лишняя ветка..
             if ("делать" in glTrainings[0]["список дел"][oParams["делать"]][i])
               for (let j=0; j< glTrainings[0]["список дел"][oParams["делать"]][i]["кол-во"]; j++ )
                 //await 
-                oneOperation(glTrainings[0]["список дел"][oParams["делать"]][i]["делать"]);
+                oneOperation(index, glTrainings[0]["список дел"][oParams["делать"]][i]["делать"]);
             else
               //await 
-              oneOperation(glTrainings[0]["список дел"][oParams["делать"]][i]);
+              oneOperation(index, glTrainings[0]["список дел"][oParams["делать"]][i]);
           }      
           
           //await 
@@ -230,7 +234,7 @@ function oneOperation(indexOrObject,sName){
 
 function clickNew(){
   alert("click begin")
-  oneOperation(0, "ХОККЕЙ - РУКИ"  )//JSON.parse(glTrainings)[0]["список дел"]["ХОККЕЙ - РУКИ"][0])
+  oneOperation(0)//JSON.parse(glTrainings)[0]["список дел"]["ХОККЕЙ - РУКИ"][0])
 //  alert(  JSON.parse(glTrainings)[0] )
 }
 
