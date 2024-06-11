@@ -172,14 +172,18 @@ let glTrainings =
     ]
     
 
+//пускач - ц кл по исходному делу тренировки
+function run(index){
+  //если не передали pParams - это пускач, начало разбора, ищем исходное дело
+  let aParams = glTrainings[index]["список дел"][glTrainings[index]["исходное дело"]];
+  aParams.forEach(p => oneOperation(index, p)  )
+}
+
 
 // oParams - объект вида{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}
 //           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
 //async 
-function oneOperation(index, pParams = null){
-  //если не передали pParams - это пускач, начало разбора, ищем исходное дело
-  let oParams =  pParams == null ?  glTrainings[index]["список дел"][glTrainings[index]["исходное дело"]]: pParams;
- 
+function oneOperation(index, oParams){
   //alert(oParams )
   //ASYNC oneOperation( ncount=> 400,operation => "do", sname=>"ДЕЙСТВИЕ ДРИБЛИНГА", ndelay=>1500, sunit=>"мсек" )
   //- ищем иднекс и значение ключа в glTrainings[ind].do..key==sname
@@ -234,7 +238,7 @@ function oneOperation(index, pParams = null){
 
 function clickNew(){
   alert("click begin")
-  oneOperation(0)//JSON.parse(glTrainings)[0]["список дел"]["ХОККЕЙ - РУКИ"][0])
+  run(0)//JSON.parse(glTrainings)[0]["список дел"]["ХОККЕЙ - РУКИ"][0])
 //  alert(  JSON.parse(glTrainings)[0] )
 }
 
