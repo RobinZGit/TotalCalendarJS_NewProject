@@ -179,16 +179,16 @@ let glTrainings =
     
 
 //пускач - ц кл по исходному делу тренировки
-function run(index){
+async function run(index){
   //если не передали pParams - это пускач, начало разбора, ищем исходное дело
   let aParams = glTrainings[index]["список дел"][glTrainings[index]["исходное дело"]];
-  aParams.forEach(p => oneOperation(index, p)  )
+  await  aParams.forEach(p => {  oneOperation(index, p) } )
 }
 
 
 // oParams - объект вида{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}
 //           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
-//async 
+async 
 function oneOperation(index, oParams){
 //------------
 if (Array.isArray( oParams["делать"] )){
