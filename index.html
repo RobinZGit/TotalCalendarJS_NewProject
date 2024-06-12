@@ -171,7 +171,7 @@ let glTrainings =
        "ТЕСТ ВЛОЖЕННОСТИ":[{"кол-во":2,"делать":[{   "кол-во":1,"делать":[ {"кол-во":3,"делать":"дддДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}],"задержка":1500,"units":"мсек"  }],"задержка":1500,"units":"мсек" }]
        
        ,
-      "ТЕСТ ВЛОЖЕННОСТИ2":[{"кол-во":2,"делать":{   "кол-во":1,"делать":"пппппп","задержка":1500,"units":"мсек"  },"задержка":1500,"units":"мсек" }]
+      "ТЕСТ ВЛОЖЕННОСТИ2":[{"кол-во":2,"делать":{   "кол-во":3,"делать":"пппппп","задержка":1500,"units":"мсек"  },"задержка":1500,"units":"мсек" }]
        }
 
     }
@@ -190,13 +190,38 @@ function run(index){
 //           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
 //async 
 function oneOperation(index, oParams){
+//------------
+if (Array.isArray( oParams["делать"] )){
+            alert(881000)
+            //for (let j=0; j< oParams["кол-во"]; j++ )
+              for(let ii =0; ii<oParams["делать"].length; ii++)
+              {
+
+               alert(88111)
+                //await 
+                oneOperation(index, oParams["делать"][ii]);
+              }
+              return
+          }  
+          /*
+          else  
+           //проверить если glTrainings_ind["список дел"][key][i] объект то вызвать oneOperation в цикле по его колву с его объектом
+            if ("делать" in oParams["делать"] ){
+             // for (let j=0; j< glTrainings[index]["список дел"][oParams["делать"]][i]["кол-во"]; j++ )
+alert(88222)
+                //await 
+                //alert(JSON.stringify(glTrainings[index]["список дел"][oParams["делать"]][i]["делать"]))
+               oneOperation(index, oParams["делать"]["делать"]);
+               return
+              }
+              */
+              //------------
+
+
+
   //alert(oParams )
   //ASYNC oneOperation( ncount=> 400,operation => "do", sname=>"ДЕЙСТВИЕ ДРИБЛИНГА", ndelay=>1500, sunit=>"мсек" )
   //- ищем иднекс и значение ключа в glTrainings[ind].do..key==sname
-  
-  //for(key in glTrainings[index]["список дел"])
-  //  alert("qqq   "+JSON.stringify( oParams["делать"]) )
-  //  if (key == oParams["делать"]) {
   for(key in glTrainings[index]["список дел"])
  //   alert(key + " _ " + oParams["делать"] )
     if (key == oParams["делать"]) {
@@ -226,7 +251,7 @@ function oneOperation(index, oParams){
 alert(222)
                 //await 
                 //alert(JSON.stringify(glTrainings[index]["список дел"][oParams["делать"]][i]["делать"]))
-               oneOperation(index, glTrainings[index]["список дел"][oParams["делать"]][i]);
+               oneOperation(index, glTrainings[index]["список дел"][oParams["делать"]][i]["делать"]);
               }
             else{
               alert(333)
