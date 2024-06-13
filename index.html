@@ -203,12 +203,27 @@ async function run(index){
 async function oneOperation(index, oParams){
   
 // конечный объект - цикл по колву и рекурсивный вызов его объекта
-//if ((typeof(oParams) == 'object') && (typeof(oParams) == 'object'))
+if ((typeof(oParams) == 'object') && (!Array.isArray(oParams)) && (typeof(oParams['делать']) == 'string')){
+  
+}
+
 // объект с вложенным объектом - цикл по колву и рекурсивный вызов объекта
+if ((typeof(oParams) == 'object') && (!Array.isArray(oParams))  && (typeof(oParams['делать']) == 'object')){
+  
+}
+
 // массив объектов - цикл по массиву и рекурсивный вызов , не разбирая элемены массива строки или объекты
+if ((Array.isArray(oParams)) && (oParams.length > 0) && (typeof(oParams[0]) == 'object')){
+  
+}
 // массив строк  (по умолчанию колво 1 и задержка 0)- по сути тот же  объект с вложенным массивом - цикл по массиву и рекурсивный вызов , не разбирая элемены массива строки или объекты
+if ((Array.isArray(oParams)) && (oParams.length > 0) && (typeof(oParams[0]) == 'string')){
+  
+}
 // строка - искать в листе, ессли нашли рекурсивно его объект иначе await say
-return
+if (typeof(oParams) == 'string'){
+  
+}
 //------------
 if (Array.isArray( oParams["делать"] )){
             alert(881000)
