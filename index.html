@@ -160,11 +160,11 @@ let glTrainings =
 {
 "исходное дело": "ХОККЕЙ - РУКИ"
 ,
-"список дел": { "ХОККЕЙ - РУКИ": [  {"кол-во":2,"делать":"ЦИКЛ"   ,"задержка":2500,"units":"мсек" }]
+"список дел": { "ХОККЕЙ - РУКИ": [  {"кол-во":2,"делать":"ЦИКЛ"   ,"задержка":7000,"units":"мсек" }]
   ,
         "1ЦИКЛ": [{"кол-во":4,"делать":"0ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"},    {"кол-во":4,"делать":"5555ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}]
         ,
-        "ЦИКЛ": [{"кол-во":4,"делать":"9999ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}]
+        "ЦИКЛ": [{"кол-во":4,"делать":"9999ДЕЙСТВИЕ ДРИБЛИНГА","задержка":5500,"units":"мсек"}]
         ,
         "ДЕЙСТВИЕ ДРИБЛИНГА":[{"кол-во":1,"выбор 1 из":["Мяч вправо","Мяч влево","Мяч вперед","Мяч назад"], "в пропорциях":[1,1,1,1]}]
        ,
@@ -178,14 +178,14 @@ let glTrainings =
     ]
     
 
-async function say0(str){
+async function say0(str, delayMsec = 0){
   return new Promise((resolve, reject) => {
                   //alert(oParams["делать"]);
                   setTimeout(() => {
                      //alert(oParams["делать"]);//???????
                      alert(str);
                      resolve('foo');
-                                  }, 0);//??????oParams["задержка"]);
+                                  }, delayMsec);
                   });
 }
 
@@ -200,17 +200,16 @@ async function run(index){
 
 // oParams - объект вида{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}
 //           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
-async function oneOperation(index, oParams){
-  
+async function oneOperation(index, oParams, delayMsec  = 0){
 // конечный объект - цикл по колву и рекурсивный вызов его объекта 
 // объект с вложенным объектом - тоже цикл по колву и рекурсивный вызов объекта
 if (
-   ((typeof(oParams) == 'object') && (!Array.isArray(oParams)) && (typeof(oParams['делать']) == 'string
+   ((typeof(oParams) == 'object') && (!Array.isArray(oParams)) && (typeof(oParams['делать']) == 'string'))
    || ((typeof(oParams) == 'object') && (!Array.isArray(oParams))  && (typeof(oParams['делать']) == 'object'))
    ){
      //сделать колво по умолч 1
      // добавить задержку
-  for (let i = 0; i <  oParams["кол-во"]; i++ ) oneOperation(index, oParams['делать'])
+  for (let i = 0; i <  oParams["кол-во"]; i++ ) oneOperation(index, oParams['делать'], delayMsec)
 }
 
 // массив объектов - цикл по массиву и рекурсивный вызов , не разбирая элемены массива строки или объекты
@@ -220,15 +219,22 @@ if (
   ((Array.isArray(oParams)) && (oParams.length > 0) && (typeof(oParams[0]) == 'object'))
   || ((Array.isArray(oParams)) && (oParams.length > 0) && (typeof(oParams[0]) == 'string'))
   ){
-  for (let i = 0; i <  oParams.length; i++ ) oneOperation(index, oParams[i])
+  for (let i = 0; i <  oParams.length; i++ ) oneOperation(index, oParams[i], delayMsec)
 }
 
 // строка - искать в листе, ессли нашли рекурсивно его объект иначе await say
 if (typeof(oParams) == 'string'){
-  return say0(oParams)
+  for(key in glTrainings[index]["список дел"])
+    if (key == oParams){
+      oneOperation(index, glTrainings[index]["список дел"][oParams], delayMsec);
+      return;
+    } 
+    
+  say0(oParams, delayMsec)
 }
 --
 alert('new end')
+return
 //------------
 if (Array.isArray( oParams["делать"] )){
             alert(881000)
