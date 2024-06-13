@@ -168,7 +168,7 @@ let glTrainings =
         ,
         "ДЕЙСТВИЕ ДРИБЛИНГА":[{"кол-во":1,"выбор 1 из":["Мяч вправо","Мяч влево","Мяч вперед","Мяч назад"], "в пропорциях":[1,1,1,1]}]
        ,
-       "ТЕСТ ВЛОЖЕННОСТИ":[{"кол-во":2,"делать":[{   "кол-во":1,"делать":[ {"кол-во":3,"делать":"дддДЕЙСТВИЕ ДРИБЛИНГА","задержка":2500,"units":"мсек"},{"кол-во":2,"делать":"yyyyДЕЙСТВИЕ ДРИБЛИНГА","задержка":2500,"units":"мсек"}],"задержка":2500,"units":"мсек"  }],"задержка":3500,"units":"мсек" }]
+       "ТЕСТ ВЛОЖЕННОСТИ":[{"кол-во":2,"делать":[{   "кол-во":3,"делать":[ {"кол-во":4,"делать":"дддДЕЙСТВИЕ ДРИБЛИНГА","задержка":2500,"units":"мсек"},{"кол-во":5,"делать":"yyyyДЕЙСТВИЕ ДРИБЛИНГА","задержка":2500,"units":"мсек"}],"задержка":2500,"units":"мсек"  }],"задержка":3500,"units":"мсек" }]
        
        ,
       "ТЕСТ ВЛОЖЕННОСТИ2":[{"кол-во":2,"делать":{   "кол-во":3,"делать":"пппппп","задержка":3500,"units":"мсек"  },"задержка":1500,"units":"мсек" }]
@@ -207,6 +207,7 @@ if (
    ((typeof(oParams) == 'object') && (!Array.isArray(oParams)) && (typeof(oParams['делать']) == 'string'))
    || ((typeof(oParams) == 'object') && (!Array.isArray(oParams))  && (typeof(oParams['делать']) == 'object'))
    ){
+  alert('NOt array\n'+JSON. stringify(oParams))
   let cnt = 1;
   try {cnt =  oParams["кол-во"]} catch(e) {};  
   for (let i = 0; i <  cnt; i++ ) await oneOperation(index, oParams['делать'], oParams['задержка'])
@@ -219,11 +220,11 @@ if (
   ((Array.isArray(oParams)) && (oParams.length > 0) && (typeof(oParams[0]) == 'object'))
   || ((Array.isArray(oParams)) && (oParams.length > 0) && (typeof(oParams[0]) == 'string'))
   ){
-
+  alert('array\n'+JSON. stringify(oParams))
   for (let i = 0; i <  oParams.length; i++ ) {
     let cnt = 1;
     try {cnt =  oParams[i]["кол-во"]} catch(e) {};  
-    for (let j = 0; j < cnt; j++ ) await oneOperation(index, oParams[i], delayMsec);
+    for (let j = 0; j < cnt; j++ ){alert(i + ' из ' + oParams.length); await oneOperation(index, oParams[i], delayMsec)};
   }  
 }
 
