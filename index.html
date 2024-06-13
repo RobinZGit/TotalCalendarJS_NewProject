@@ -160,7 +160,7 @@ let glTrainings =
 {
 "исходное дело": "ХОККЕЙ - РУКИ"
 ,
-"список дел": { "ХОККЕЙ - РУКИ": [  {"кол-во":2,"делать":"ЦИКЛ"   ,"задержка":2000,"units":"мсек" }]
+"список дел": { "ХОККЕЙ - РУКИ": [  {"кол-во":2,"делать":"ТЕСТ ВЛОЖЕННОСТИ2"   ,"задержка":2000,"units":"мсек" }]
   ,
         "1ЦИКЛ": [{"кол-во":4,"делать":"0ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"},    {"кол-во":4,"делать":"5555ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}]
         ,
@@ -230,7 +230,7 @@ if (typeof(oParams) == 'string'){
       //return;
     } 
     
-  say0(oParams, delayMsec)
+  return say0(oParams, delayMsec)
 }
 --
 alert('new end')
@@ -334,9 +334,9 @@ alert(222)
 }
 
 
-function clickNew(){
+async function clickNew(){
   alert("click begin")
-  run(0)//JSON.parse(glTrainings)[0]["список дел"]["ХОККЕЙ - РУКИ"][0])
+  await run(0)//JSON.parse(glTrainings)[0]["список дел"]["ХОККЕЙ - РУКИ"][0])
 //  alert(  JSON.parse(glTrainings)[0] )
 }
 
