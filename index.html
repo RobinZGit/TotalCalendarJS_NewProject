@@ -202,28 +202,32 @@ async function run(index){
 //           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
 async function oneOperation(index, oParams){
   
-// конечный объект - цикл по колву и рекурсивный вызов его объекта
+// конечный объект - цикл по колву и рекурсивный вызов его объекта 
 if ((typeof(oParams) == 'object') && (!Array.isArray(oParams)) && (typeof(oParams['делать']) == 'string')){
-  
+  for (let i = 0; i <  oParams["кол-во"]; i++ ) oneOperation(index, oParams['делать'])
 }
 
 // объект с вложенным объектом - цикл по колву и рекурсивный вызов объекта
+//..!! слить с пред
 if ((typeof(oParams) == 'object') && (!Array.isArray(oParams))  && (typeof(oParams['делать']) == 'object')){
-  
+  for (let i = 0; i <  oParams["кол-во"]; i++ ) oneOperation(index, oParams['делать'])
 }
 
 // массив объектов - цикл по массиву и рекурсивный вызов , не разбирая элемены массива строки или объекты
 if ((Array.isArray(oParams)) && (oParams.length > 0) && (typeof(oParams[0]) == 'object')){
-  
+  for (let i = 0; i <  oParams.length; i++ ) oneOperation(index, oParams[i])
 }
 // массив строк  (по умолчанию колво 1 и задержка 0)- по сути тот же  объект с вложенным массивом - цикл по массиву и рекурсивный вызов , не разбирая элемены массива строки или объекты
+//!!.. слить с пред  и  можно делать массив строк и объектов вперемешку
 if ((Array.isArray(oParams)) && (oParams.length > 0) && (typeof(oParams[0]) == 'string')){
-  
+  for (let i = 0; i <  oParams.length; i++ ) oneOperation(index, oParams[i])
 }
+
 // строка - искать в листе, ессли нашли рекурсивно его объект иначе await say
 if (typeof(oParams) == 'string'){
-  
+  return say0(oParams)
 }
+alert('new end')
 //------------
 if (Array.isArray( oParams["делать"] )){
             alert(881000)
