@@ -234,13 +234,13 @@ function oneOperation(index, oParams, delayMsec  = 0){
 // конечный объект - цикл по колву и рекурсивный вызов его объекта 
 // объект с вложенным объектом - тоже цикл по колву и рекурсивный вызов объекта
 if (
-   ((typeof(oParams) == 'object') && (!Array.isArray(oParams)) && (typeof(oParams['делать']) == 'string'))
-   || ((typeof(oParams) == 'object') && (!Array.isArray(oParams))  && (typeof(oParams['делать']) == 'object'))
+   ((typeof(oParams) == 'object') && (!Array.isArray(oParams)) && (typeof(oParams[COL_TODO]) == 'string'))
+   || ((typeof(oParams) == 'object') && (!Array.isArray(oParams))  && (typeof(oParams[COL_TODO]) == 'object'))
    ){
   //alert('NOt array\n'+JSON. stringify(oParams))
   let cnt = 1;
-  try {cnt =  oParams["кол-во"]} catch(e) {};  
-  for (let i = 0; i <  cnt; i++ ) oneOperation(index, oParams['делать'], oParams['задержка'])
+  try {cnt =  oParams[COL_COUNT]} catch(e) {};  
+  for (let i = 0; i <  cnt; i++ ) oneOperation(index, oParams[COL_TODO], oParams[COL_DELAY])
 }
 
 // массив объектов - цикл по массиву и рекурсивный вызов , не разбирая элемены массива строки или объекты
@@ -253,7 +253,7 @@ if (
   //alert('array\n'+JSON. stringify(oParams))
   for (let i = 0; i <  oParams.length; i++ ) {
     let cnt = 1;
-    try {cnt =  oParams[i]["кол-во"]} catch(e) {};  
+    try {cnt =  oParams[i][COL_COUNT]} catch(e) {};  
     for (let j = 0; j < cnt; j++ ){//alert(i + ' из ' + oParams.length)
            oneOperation(index, oParams[i], delayMsec)
     };
