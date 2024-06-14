@@ -155,7 +155,7 @@
               //================  ХОККЕЙ - РУКИ
               glTrainings[ind]
         */      
-let glTest = ''
+let glTest = []
         
 let glTrainings = 
 [
@@ -182,7 +182,8 @@ let glTrainings =
 
 //async 
 function say0(str, delayMsec = 0){
-  glTest +=    (str + '\n' + delayMsec + '\n')
+  glTest.push(str);
+  glTest.push(delayMsec);
   /*return new Promise((resolve, reject) => {
                   //alert(oParams["делать"]);
                   setTimeout(() => {
@@ -209,6 +210,7 @@ function run(index){
 // oParams - объект вида{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}
 //           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
 function oneOperation(index, oParams, delayMsec  = 0){
+  
 // конечный объект - цикл по колву и рекурсивный вызов его объекта 
 // объект с вложенным объектом - тоже цикл по колву и рекурсивный вызов объекта
 if (
@@ -243,15 +245,17 @@ if (typeof(oParams) == 'string'){
   for(key in glTrainings[index]["список дел"])
     if (key == oParams){
        oneOperation(index, glTrainings[index]["список дел"][oParams], delayMsec);
-      //return;
+      return;
     } 
     
    say0(oParams, delayMsec)
-   alert(glTest)
+   //alert(glTest)
 }
---
-alert('new end')
-return
+   
+
+
+//alert('new end')
+//return 2
   
 }
 
@@ -260,6 +264,7 @@ return
   alert("click begin")
   run(0)//JSON.parse(glTrainings)[0]["список дел"]["ХОККЕЙ - РУКИ"][0])
   alert(glTest)
+  console.log(glTest)
 //  alert(  JSON.parse(glTrainings)[0] )
 }
 
