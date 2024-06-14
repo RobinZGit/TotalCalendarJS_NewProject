@@ -155,6 +155,8 @@
               //================  ХОККЕЙ - РУКИ
               glTrainings[ind]
         */      
+let glTest = ''
+        
 let glTrainings = 
 [
 {
@@ -178,8 +180,10 @@ let glTrainings =
     ]
     
 
-async function say0(str, delayMsec = 0){
-  return new Promise((resolve, reject) => {
+//async 
+function say0(str, delayMsec = 0){
+  glTest +=    (str + '\n' + delayMsec + '\n')
+  /*return new Promise((resolve, reject) => {
                   //alert(oParams["делать"]);
                   setTimeout(() => {
                      //alert(oParams["делать"]);//???????
@@ -187,30 +191,34 @@ async function say0(str, delayMsec = 0){
                      resolve('foo');
                                   }, delayMsec);
                   });
+                  */
+    return
 }
 
 //пускач - ц кл по исходному делу тренировки
-async function run(index){
+//async 
+function run(index){
   //если не передали pParams - это пускач, начало разбора, ищем исходное дело
   let aParams = glTrainings[index]["список дел"][glTrainings[index]["исходное дело"]];
-  for(let i=0; i<aParams.length; i++) await oneOperation(index, aParams[i])
+  for(let i=0; i<aParams.length; i++) 
+     oneOperation(index, aParams[i])
   //await  aParams.forEach(p => {  oneOperation(index, p) } )
 }
 
 
 // oParams - объект вида{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}
 //           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
-async function oneOperation(index, oParams, delayMsec  = 0){
+function oneOperation(index, oParams, delayMsec  = 0){
 // конечный объект - цикл по колву и рекурсивный вызов его объекта 
 // объект с вложенным объектом - тоже цикл по колву и рекурсивный вызов объекта
 if (
    ((typeof(oParams) == 'object') && (!Array.isArray(oParams)) && (typeof(oParams['делать']) == 'string'))
    || ((typeof(oParams) == 'object') && (!Array.isArray(oParams))  && (typeof(oParams['делать']) == 'object'))
    ){
-  alert('NOt array\n'+JSON. stringify(oParams))
+  //alert('NOt array\n'+JSON. stringify(oParams))
   let cnt = 1;
   try {cnt =  oParams["кол-во"]} catch(e) {};  
-  for (let i = 0; i <  cnt; i++ ) await oneOperation(index, oParams['делать'], oParams['задержка'])
+  for (let i = 0; i <  cnt; i++ ) oneOperation(index, oParams['делать'], oParams['задержка'])
 }
 
 // массив объектов - цикл по массиву и рекурсивный вызов , не разбирая элемены массива строки или объекты
@@ -220,11 +228,13 @@ if (
   ((Array.isArray(oParams)) && (oParams.length > 0) && (typeof(oParams[0]) == 'object'))
   || ((Array.isArray(oParams)) && (oParams.length > 0) && (typeof(oParams[0]) == 'string'))
   ){
-  alert('array\n'+JSON. stringify(oParams))
+  //alert('array\n'+JSON. stringify(oParams))
   for (let i = 0; i <  oParams.length; i++ ) {
     let cnt = 1;
     try {cnt =  oParams[i]["кол-во"]} catch(e) {};  
-    for (let j = 0; j < cnt; j++ ){alert(i + ' из ' + oParams.length); await oneOperation(index, oParams[i], delayMsec)};
+    for (let j = 0; j < cnt; j++ ){//alert(i + ' из ' + oParams.length)
+           oneOperation(index, oParams[i], delayMsec)
+    };
   }  
 }
 
@@ -232,22 +242,24 @@ if (
 if (typeof(oParams) == 'string'){
   for(key in glTrainings[index]["список дел"])
     if (key == oParams){
-      await oneOperation(index, glTrainings[index]["список дел"][oParams], delayMsec);
+       oneOperation(index, glTrainings[index]["список дел"][oParams], delayMsec);
       //return;
     } 
     
-  return say0(oParams, delayMsec)
+   say0(oParams, delayMsec)
+   alert(glTest)
 }
 --
 alert('new end')
-
+return
   
 }
 
 
-async function clickNew(){
+ function clickNew(){
   alert("click begin")
-  await run(0)//JSON.parse(glTrainings)[0]["список дел"]["ХОККЕЙ - РУКИ"][0])
+  run(0)//JSON.parse(glTrainings)[0]["список дел"]["ХОККЕЙ - РУКИ"][0])
+  alert(glTest)
 //  alert(  JSON.parse(glTrainings)[0] )
 }
 
