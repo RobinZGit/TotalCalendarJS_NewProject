@@ -231,7 +231,6 @@ function run(index){
 // oParams - объект вида{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}
 //           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
 function oneOperation(index, oParams, delayMsec  = 0){
-  
 // конечный объект - цикл по колву и рекурсивный вызов его объекта 
 // объект с вложенным объектом - тоже цикл по колву и рекурсивный вызов объекта
 if (
@@ -259,6 +258,35 @@ if (
            oneOperation(index, oParams[i], delayMsec)
     };
   }  
+/*  
+// конечный объект - цикл по колву и рекурсивный вызов его объекта 
+// объект с вложенным объектом - тоже цикл по колву и рекурсивный вызов объекта
+if (
+   ((typeof(oParams) == 'object') && (!Array.isArray(oParams)) && (typeof(oParams['делать']) == 'string'))
+   || ((typeof(oParams) == 'object') && (!Array.isArray(oParams))  && (typeof(oParams['делать']) == 'object'))
+   ){
+  //alert('NOt array\n'+JSON. stringify(oParams))
+  let cnt = 1;
+  try {cnt =  oParams["кол-во"]} catch(e) {};  
+  for (let i = 0; i <  cnt; i++ ) oneOperation(index, oParams['делать'], oParams['задержка'])
+}
+
+// массив объектов - цикл по массиву и рекурсивный вызов , не разбирая элемены массива строки или объекты
+// массив строк  (по умолчанию колво 1 и задержка 0)- по сути тот же  объект с вложенным массивом
+//   т.е. можно делать массив строк и объектов вперемешку
+if (
+  ((Array.isArray(oParams)) && (oParams.length > 0) && (typeof(oParams[0]) == 'object'))
+  || ((Array.isArray(oParams)) && (oParams.length > 0) && (typeof(oParams[0]) == 'string'))
+  ){
+  //alert('array\n'+JSON. stringify(oParams))
+  for (let i = 0; i <  oParams.length; i++ ) {
+    let cnt = 1;
+    try {cnt =  oParams[i]["кол-во"]} catch(e) {};  
+    for (let j = 0; j < cnt; j++ ){//alert(i + ' из ' + oParams.length)
+           oneOperation(index, oParams[i], delayMsec)
+    };
+  }  
+  */
 }
 
 // строка - искать в листе, ессли нашли рекурсивно его объект иначе await say
