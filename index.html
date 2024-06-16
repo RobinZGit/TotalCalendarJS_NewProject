@@ -204,10 +204,11 @@ if (isEndObject(oParams)){
 
 if (  isListObjects(oParams)  ){
   //alert('isListObjects\n'+JSON. stringify(oParams))
-  for (let i = 0; i <  oParams.length; i++ ) {
+  //for (let i = 0; i <  oParams.length; i++ ) {
     //let cnt = 1;
     //try {cnt =  oParams[i][COL_COUNT]} catch(e) {};//!!!!!! no !
-    for (let j = 0; j < cnt; j++ ){//alert(i + ' из ' + oParams.length)
+  for (let j = 0; j < cnt; j++ ){//alert(i + ' из ' + oParams.length)
+    for (let i = 0; i <  oParams.length; i++ ) {
       genRtm(index, oParams[i], oParams[i][COL_COUNT], delayMsec)
     };
   }  
