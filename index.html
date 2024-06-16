@@ -156,7 +156,7 @@ let glTrainings =
 "список дел": { 
        "ХОККЕЙ - РУКИ": [  [1, "цикл"   ,2000,"мсек" ] ]
        ,
-       "цикл": [1, [[1,"у1",2000,"мсек"],[1,"у2",2000,"мсек"],[1,"у3",2000,"мсек"]], 1000, "мсек"]
+       "цикл": [2, [[1,"у1",2000,"мсек"],[1,"у2",2000,"мсек"],[1,"у3",2000,"мсек"]], 1000, "мсек"]
        ,
        "у1": [1, [[1,"у11",2000,"мсек"],[1,"у12",2000,"мсек"],[1,"у13",2000,"мсек"]], 1000, "мсек"]
        ,
@@ -243,7 +243,7 @@ if (isEndString(oParams)){
       return;
     } 
  let sToSay = typeof(oParams) == 'function' ? oParams()  : oParams
- glTest.push({"index": glTest.length, "say":sToSay, "delay":delayMsec, "path": sPath + sToSay + " / " })
+ glTest.push({"index": glTest.length, "say":sToSay, "delay":delayMsec, "path": sPath + sToSay })
  //alert('glTest\n' +JSON.stringify(glTest))
 }
   
