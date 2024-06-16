@@ -234,7 +234,8 @@ if (isEndString(oParams)){
 }
 
 // проговаривает либо показывает тренировку из входа в формате rtm,   
-function play(aRtm, i){
+//let glPlayProcessId = 0
+function play(aRtm, i, pPlayProcessId=0){
   //ВЕРНУТЬ  alert('!play!' + aRtm[i].say) //   показ картинок, вычисление онлайн, беззвучный режим
   //say(aRtm[i].say)
   if (i < aRtm.length) setTimeout(()=>{play(aRtm, i+1)}, aRtm[i].delay)
