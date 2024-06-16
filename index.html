@@ -192,7 +192,7 @@ let glTrainings =
 "исходное дело": "ХОККЕЙ - РУКИ"
 ,
 "список дел": { 
-       "ХОККЕЙ - РУКИ": [  [2,"ТЕСТ ВЛОЖЕННОСТИ00"   ,2000,"мсек" ] ]
+       "ХОККЕЙ - РУКИ": [  [3,"ТЕСТ ВЛОЖЕННОСТИ00"   ,2000,"мсек" ] ]
        ,
        "ТЕСТ ВЛОЖЕННОСТИ":[3,[ 4,"дддДЕЙСТВИЕ ДРИБЛИНГА",2500,"мсек"],[5,"yyyyДЕЙСТВИЕ ДРИБЛИНГА",2500,"мсек"]]
        ,
@@ -221,12 +221,13 @@ function say0(str, delayMsec = 0){
 //пускач - ц кл по исходному делу тренировки
 //async 
 function run(index){
+  glTest = []
   //если не передали pParams - это пускач, начало разбора, ищем исходное дело
   let aParams = glTrainings[index]["список дел"][glTrainings[index]["исходное дело"]];
   for(let i=0; i<aParams.length; i++) 
      genRtm(index, aParams[i])
   //await  aParams.forEach(p => {  oneOperation(index, p) } )
-  document.getElementById("idTextTime").value =JSON.stringify(glTest)
+  
 }
 
 
@@ -243,7 +244,7 @@ const isListObjects = (params) => {return (typeof(params) == 'object') && (Array
 // ...... объект с вложенным объектом - тоже цикл по колву и рекурсивный вызов объекта
 if (isEndObject(oParams)){
   
-alert('isEndObject\n'+JSON. stringify(oParams))
+//alert('isEndObject\n'+JSON. stringify(oParams))
   let cnt = 1;
   try {cnt =  oParams[COL_COUNT]} catch(e) {};  
   for (let i = 0; i <  cnt; i++ ) genRtm(index, oParams[COL_TODO], oParams[COL_DELAY])
@@ -254,7 +255,7 @@ alert('isEndObject\n'+JSON. stringify(oParams))
 //   т.е. можно делать массив строк и объектов вперемешку
 
 if (  isListObjects(oParams)  ){
-  alert('isListObjects\n'+JSON. stringify(oParams))
+  //alert('isListObjects\n'+JSON. stringify(oParams))
   for (let i = 0; i <  oParams.length; i++ ) {
     let cnt = 1;
     try {cnt =  oParams[i][COL_COUNT]} catch(e) {};  
@@ -266,7 +267,7 @@ if (  isListObjects(oParams)  ){
   
   // строка - искать в листе, ессли нашли рекурсивно его объект иначе await say
 if (isEndString(oParams)){
-alert('isEndString\n'+JSON. stringify(oParams))
+//alert('isEndString\n'+JSON. stringify(oParams))
   for(key in glTrainings[index]["список дел"])
     if (key == oParams){
        genRtm(index, glTrainings[index]["список дел"][oParams], delayMsec);
@@ -276,54 +277,6 @@ alert('isEndString\n'+JSON. stringify(oParams))
  glTest.push({"say":sToSay, "delay":delayMsec })
  //alert('glTest\n' +JSON.stringify(glTest))
 }
-
-/*  
-// конечный объект - цикл по колву и рекурсивный вызов его объекта 
-// объект с вложенным объектом - тоже цикл по колву и рекурсивный вызов объекта
-if (
-   ((typeof(oParams) == 'object') && (!Array.isArray(oParams)) && (typeof(oParams['делать']) == 'string'))
-   || ((typeof(oParams) == 'object') && (!Array.isArray(oParams))  && (typeof(oParams['делать']) == 'object'))
-   ){
-  //alert('NOt array\n'+JSON. stringify(oParams))
-  let cnt = 1;
-  try {cnt =  oParams["кол-во"]} catch(e) {};  
-  for (let i = 0; i <  cnt; i++ ) oneOperation(index, oParams['делать'], oParams['задержка'])
-}
-
-// массив объектов - цикл по массиву и рекурсивный вызов , не разбирая элемены массива строки или объекты
-// массив строк  (по умолчанию колво 1 и задержка 0)- по сути тот же  объект с вложенным массивом
-//   т.е. можно делать массив строк и объектов вперемешку
-if (
-  ((Array.isArray(oParams)) && (oParams.length > 0) && (typeof(oParams[0]) == 'object'))
-  || ((Array.isArray(oParams)) && (oParams.length > 0) && (typeof(oParams[0]) == 'string'))
-  ){
-  //alert('array\n'+JSON. stringify(oParams))
-  for (let i = 0; i <  oParams.length; i++ ) {
-    let cnt = 1;
-    try {cnt =  oParams[i]["кол-во"]} catch(e) {};  
-    for (let j = 0; j < cnt; j++ ){//alert(i + ' из ' + oParams.length)
-           oneOperation(index, oParams[i], delayMsec)
-    };
-  }  
-  
-}
-
-// строка - искать в листе, ессли нашли рекурсивно его объект иначе await say
-if (typeof(oParams) == 'string'){
-  for(key in glTrainings[index]["список дел"])
-    if (key == oParams){
-       oneOperation(index, glTrainings[index]["список дел"][oParams], delayMsec);
-      return;
-    } 
-    
-   say0(oParams, delayMsec)
-   //alert(glTest)
-}
-   
-*/
-
-//alert('new end')
-//return 2
   
 }
 
@@ -339,8 +292,9 @@ function play(aRtm, i){
   alert("click begin")
   run(0)//JSON.parse(glTrainings)[0]["список дел"]["ХОККЕЙ - РУКИ"][0])
   play(glTest,0)
-  alert('glTest\n' +JSON.stringify(glTest))
-  console.log(glTest)
+  //alert('glTest\n' +JSON.stringify(glTest))
+  //console.log(glTest)
+  document.getElementById("idTextTest").value =JSON.stringify(glTest)
 //  alert(  JSON.parse(glTrainings)[0] )
 }
 
