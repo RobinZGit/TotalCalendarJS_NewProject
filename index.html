@@ -270,7 +270,8 @@ if (isEndString(oParams)){
 //alert('isEndString\n'+JSON. stringify(oParams))
   for(key in glTrainings[index]["список дел"])
     if (key == oParams){
-       genRtm(index, glTrainings[index]["список дел"][oParams], delayMsec);
+      //alert("find "+ key)
+       genRtm(index, glTrainings[index]["список дел"][oParams][COL_TODO], delayMsec);
       return;
     } 
  let sToSay = typeof(oParams) == 'function' ? oParams()  : oParams
