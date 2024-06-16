@@ -140,47 +140,9 @@
 
 <script>
 //±+++++++++++NEW 
-/*
-пускач:  oneOperation(1,glTrainings[ind].name)
 
-алгоритм для operation  = do
- ASYNC oneOperation( ncount=> 400,operation => "do", sname=>"ДЕЙСТВИЕ ДРИБЛИНГА", ndelay=>1500, sunit=>"мсек" )
-   - ищем иднекс и значение ключа в glTrainings[ind].do..key==sname
-   - если не нашли - сказать или показать sname, мб вычленив и показав ссылки. !!!!!! если функция то выполнить ее
-   - если нашли  i, arr - цикл по arr  !! AWAIT !! - если нет влож объекта-массива типа "делать":[..] то рекурсивный вызов oneOperation иначе цикл по элементам массива и рекурс вызов .и таймаут на ndelay
- 
- 
- 
- 
- 
-              //================  ХОККЕЙ - РУКИ
-              glTrainings[ind]
-        */      
 let glTest = []
         
-let oldglTrainings = 
-[
-{
-"исходное дело": "ХОККЕЙ - РУКИ"
-,
-"список дел": { "ХОККЕЙ - РУКИ": [  {"кол-во":2,"делать":"ТЕСТ ВЛОЖЕННОСТИ"   ,"задержка":2000,"units":"мсек" }]
-  ,
-        "1ЦИКЛ": [{"кол-во":4,"делать":"0ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"},    {"кол-во":4,"делать":"5555ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}]
-        ,
-        "ЦИКЛ": [{"кол-во":4,"делать":"9999ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}]
-        ,
-        "ДЕЙСТВИЕ ДРИБЛИНГА":[{"кол-во":1,"выбор 1 из":["Мяч вправо","Мяч влево","Мяч вперед","Мяч назад"], "в пропорциях":[1,1,1,1]}]
-       ,
-       "ТЕСТ ВЛОЖЕННОСТИ":[{"кол-во":2,"делать":[{   "кол-во":3,"делать":[ {"кол-во":4,"делать":"дддДЕЙСТВИЕ ДРИБЛИНГА","задержка":2500,"units":"мсек"},{"кол-во":5,"делать":"yyyyДЕЙСТВИЕ ДРИБЛИНГА","задержка":2500,"units":"мсек"}],"задержка":2500,"units":"мсек"  }],"задержка":3500,"units":"мсек" }]
-       
-       ,
-      "ТЕСТ ВЛОЖЕННОСТИ2":[{"кол-во":2,"делать":{   "кол-во":3,"делать":"пппппп","задержка":3500,"units":"мсек"  },"задержка":1500,"units":"мсек" }]
-       }
-
-    }
-    ]
-    
-
 const COL_COUNT=0
 const COL_TODO=1
 const COL_DELAY=2
@@ -192,9 +154,9 @@ let glTrainings =
 "исходное дело": "ХОККЕЙ - РУКИ"
 ,
 "список дел": { 
-       "ХОККЕЙ - РУКИ": [  [1, "ТЕСТ ВЛОЖЕННОСТИ2"   ,2000,"мсек" ] ]
+       "ХОККЕЙ - РУКИ": [  [1, "ТЕСТ ВЛОЖЕННОСТИ"   ,2000,"мсек" ] ]
        ,
-       "ТЕСТ ВЛОЖЕННОСТИ":[3,[[ 4,"дддДЕЙСТВИЕ ДРИБЛИНГА",2500,"мсек"],[5,"yyyyДЕЙСТВИЕ ДРИБЛИНГА",2500,"мсек"]], 1500, 'мсек']
+       "ТЕСТ ВЛОЖЕННОСТИ":[2,[[ 3,"дддДЕЙСТВИЕ ДРИБЛИНГА",2500,"мсек"],[2,"yyyyДЕЙСТВИЕ ДРИБЛИНГА",2500,"мсек"]], 1500, 'мсек']
        ,
        // пример тупой вложенности ?? только одна ветка и можно было просто умножить количества в предке
       "ТЕСТ ВЛОЖЕННОСТИ2":[2,[[3,"пппппп",3500,"мсек"  ]],1500,"мсек" ]
@@ -210,6 +172,7 @@ function run(index){
   glTest = []
   //если не передали pParams - это пускач, начало разбора, ищем исходное дело
   let aParams = glTrainings[index]["список дел"][glTrainings[index]["исходное дело"]];
+  document.getElementById("idTextTest").value =JSON.stringify(glTrainings[index]["список дел"],null,'  ')+ '\n\n----------------------\n'
   for(let i=0; i<aParams.length; i++) 
      genRtm(index, aParams[i])
   //await  aParams.forEach(p => {  oneOperation(index, p) } )
@@ -245,12 +208,12 @@ if (  isListObjects(oParams)  ){
     //let cnt = 1;
     //try {cnt =  oParams[i][COL_COUNT]} catch(e) {};//!!!!!! no !
     for (let j = 0; j < cnt; j++ ){//alert(i + ' из ' + oParams.length)
-           genRtm(index, oParams[i], oParams[i][COL_COUNT], delayMsec)
+      genRtm(index, oParams[i], oParams[i][COL_COUNT], delayMsec)
     };
   }  
 }  
   
-  // строка - искать в листе, ессли нашли рекурсивно его объект иначе await say
+// строка - искать в листе, ессли нашли рекурсивно его объект иначе await say
 if (isEndString(oParams)){
 //alert('isEndString\n'+JSON. stringify(oParams))
   for(key in glTrainings[index]["список дел"])
@@ -268,8 +231,7 @@ if (isEndString(oParams)){
 
 // проговаривает либо показывает тренировку из входа в формате rtm,   
 function play(aRtm, i){
-//alert('playt\n' +JSON.stringify(aRtm))
-  alert('!play!' + aRtm[i].say) //   показ картинок, вычисление онлайн, беззвучный режим
+  //ВЕРНУТЬ  alert('!play!' + aRtm[i].say) //   показ картинок, вычисление онлайн, беззвучный режим
   if (i < aRtm.length) setTimeout(()=>{play(aRtm, i+1)}, aRtm[i].delay)
 }
 
@@ -277,11 +239,11 @@ function play(aRtm, i){
  function clickNew(){
   glTest = []
   alert("click begin")
-  run(0)//JSON.parse(glTrainings)[0]["список дел"]["ХОККЕЙ - РУКИ"][0])
+  run(0)
   play(glTest,0)
   //alert('glTest\n' +JSON.stringify(glTest))
   //console.log(glTest)
-  document.getElementById("idTextTest").value =JSON.stringify(glTest)
+  document.getElementById("idTextTest").value +=JSON.stringify(glTest, null,'  ')
 //  alert(  JSON.parse(glTrainings)[0] )
 }
 
