@@ -154,7 +154,7 @@ let glTrainings =
 "исходное дело": "ХОККЕЙ - РУКИ"
 ,
 "список дел": { 
-       "ХОККЕЙ - РУКИ": [  [1, "ТЕСТ ВЛОЖЕННОСТИ3"   ,2000,"мсек" ] ]
+       "ХОККЕЙ - РУКИ": [  [1, "ТЕСТ ВЛОЖЕННОСТИ2"   ,2000,"мсек" ] ]
        ,
        "ТЕСТ ВЛОЖЕННОСТИ":[2,[[ 3,"дддДЕЙСТВИЕ ДРИБЛИНГА",2500,"мсек"],[2,"yyyyДЕЙСТВИЕ ДРИБЛИНГА",2500,"мсек"]], 1500, 'мсек']
        ,
@@ -191,7 +191,7 @@ function run(index){
 
 // oParams - объект вида{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}
 //           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
-function genRtm(index, oParams, pCnt = 1, delayMsec  = 0){
+function genRtm(index, oParams, pCnt = 1, delayMsec  = 0, sPath = ''){
 let cnt = pCnt;  
 ((pCnt == null) || (pCnt == undefined)) ? cnt = 1 : cnt = pCnt;
 const isEndObject = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && ((typeof(params[COL_TODO]) == 'string') || (typeof(params[COL_TODO]) == 'function'))}
@@ -206,7 +206,7 @@ if (isEndObject(oParams)){
 //alert('isEndObject\n'+JSON. stringify(oParams))
   //let cnt = 1;
   //try {cnt =  oParams[COL_COUNT]} catch(e) {};  
-  for (let i = 0; i <  cnt; i++ ) genRtm(index, oParams[COL_TODO], oParams[COL_COUNT], oParams[COL_DELAY])
+  for (let i = 0; i <  cnt; i++ ) genRtm(index, oParams[COL_TODO], oParams[COL_COUNT], oParams[COL_DELAY], sPath)
 }
 
 // массив объектов - цикл по массиву и рекурсивный вызов , не разбирая элемены массива строки или объекты
@@ -220,7 +220,7 @@ if (  isListObjects(oParams)  ||  isWrappedObject(oParams) ){
     //try {cnt =  oParams[i][COL_COUNT]} catch(e) {};//!!!!!! no !
   for (let j = 0; j < cnt; j++ ){//alert(i + ' из ' + oParams.length)
     for (let i = 0; i <  oParams.length; i++ ) {
-      genRtm(index, oParams[i], oParams[i][COL_COUNT], delayMsec)
+      genRtm(index, oParams[i], oParams[i][COL_COUNT], delayMsec, sPath)
     };
   }  
 }  
@@ -231,11 +231,11 @@ if (isEndString(oParams)){
   for(key in glTrainings[index]["список дел"])
     if (key == oParams){
       //alert("find "+ key)
-       genRtm(index, glTrainings[index]["список дел"][oParams][COL_TODO], glTrainings[index]["список дел"][oParams][COL_COUNT], delayMsec);
+       genRtm(index, glTrainings[index]["список дел"][oParams][COL_TODO], glTrainings[index]["список дел"][oParams][COL_COUNT], delayMsec, sPath + " | " + key);
       return;
     } 
  let sToSay = typeof(oParams) == 'function' ? oParams()  : oParams
- glTest.push({"index": glTest.length, "say":sToSay, "delay":delayMsec })
+ glTest.push({"index": glTest.length, "say":sToSay, "delay":delayMsec, "path": sPath })
  //alert('glTest\n' +JSON.stringify(glTest))
 }
   
@@ -246,7 +246,7 @@ let glPlayProcessId = 0
 function play(aRtm, i, pPlayProcessId=0){
   if (pPlayProcessId != glPlayProcessId) return; // остановка проигрывания при запуске нового (при навигации напр)
   //ВЕРНУТЬ  alert('!play!' + aRtm[i].say) //   показ картинок, вычисление онлайн, беззвучный режим
-  say0(aRtm[i].say)
+  //say0(aRtm[i].say)
   if (i < aRtm.length) setTimeout(()=>{play(aRtm, i+1)}, aRtm[i].delay, pPlayProcessId)
 }
 
