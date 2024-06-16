@@ -161,13 +161,21 @@ let glTrainings =
        // пример тупой вложенности ?? только одна ветка и можно было просто умножить количества в предке
       "ТЕСТ ВЛОЖЕННОСТИ2":[2,[[3,"пппппп",3500,"мсек"  ], [2,"   gggg",2500,"мсек"  ] ],1500,"мсек" ]
       ,
-      "ТЕСТ ВЛОЖЕННОСТИ3": [1, [2, [3, "hhh"   ,2000,"мсек" ]   ,2000,"мсек" ]   ,2000,"мсек" ] 
+      "ТЕСТ ВЛОЖЕННОСТИ3": [1, [2, [3, "ураааа"   ,2000,"мсек" ]   ,2000,"мсек" ]   ,2000,"мсек" ] 
        
        }
 
     }
     ] 
 
+function say0(str0){
+  var str = str0
+  alert(str)
+  var utterance0 = new SpeechSynthesisUtterance(str);
+  utterance0.rate=1.5;//document.getElementById("inputRate").value;// 1.5; //скорость речи
+        //if (Gl_StopSpeakIfNext) window.speechSynthesis.cancel()
+  window.speechSynthesis.speak(utterance0);
+}
 
 //пускач - ц кл по исходному делу тренировки,  от поддела index  и далее до конца дела. можно использовать для навигации по трене
 function run(index){
@@ -206,7 +214,7 @@ if (isEndObject(oParams)){
 //   т.е. можно делать массив строк и объектов вперемешку
 
 if (  isListObjects(oParams)  ||  isWrappedObject(oParams) ){
-  alert('isListObjects\n'+JSON. stringify(oParams))
+  //alert('isListObjects\n'+JSON. stringify(oParams))
   //for (let i = 0; i <  oParams.length; i++ ) {
     //let cnt = 1;
     //try {cnt =  oParams[i][COL_COUNT]} catch(e) {};//!!!!!! no !
@@ -238,7 +246,7 @@ let glPlayProcessId = 0
 function play(aRtm, i, pPlayProcessId=0){
   if (pPlayProcessId != glPlayProcessId) return; // остановка проигрывания при запуске нового (при навигации напр)
   //ВЕРНУТЬ  alert('!play!' + aRtm[i].say) //   показ картинок, вычисление онлайн, беззвучный режим
-  //say(aRtm[i].say)
+  say0(aRtm[i].say)
   if (i < aRtm.length) setTimeout(()=>{play(aRtm, i+1)}, aRtm[i].delay, pPlayProcessId)
 }
 
@@ -254,6 +262,9 @@ function play(aRtm, i, pPlayProcessId=0){
   document.getElementById("idTextTest").value +=JSON.stringify(glTest, null,'  ')
 //  alert(  JSON.parse(glTrainings)[0] )
 }
+
+
+
 
 
 //≈≈========================
