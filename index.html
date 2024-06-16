@@ -218,7 +218,9 @@ function run(index){
 
 // oParams - объект вида{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}
 //           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
-function genRtm(index, oParams, delayMsec  = 0){
+function genRtm(index, oParams, pCnt = 1, delayMsec  = 0){
+let cnt = pCnt;  
+((pCnt == null) || (pCnt == undefined)) ? cnt = 1 : cnt = pCnt;
 const isEndObject = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && ((typeof(params[COL_TODO]) == 'string') || (typeof(params[COL_TODO]) == 'function'))}
 const isEndString = (params) => {return ((typeof(params) == 'string') || (typeof(params) == 'function'))  }
 const isListObjects = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && (Array.isArray(params[0]))}
@@ -228,9 +230,9 @@ const isListObjects = (params) => {return (typeof(params) == 'object') && (Array
 if (isEndObject(oParams)){
   
 //alert('isEndObject\n'+JSON. stringify(oParams))
-  let cnt = 1;
-  try {cnt =  oParams[COL_COUNT]} catch(e) {};  
-  for (let i = 0; i <  cnt; i++ ) genRtm(index, oParams[COL_TODO], oParams[COL_DELAY])
+  //let cnt = 1;
+  //try {cnt =  oParams[COL_COUNT]} catch(e) {};  
+  for (let i = 0; i <  cnt; i++ ) genRtm(index, oParams[COL_TODO], oParams[COL_COUNT], oParams[COL_DELAY])
 }
 
 // массив объектов - цикл по массиву и рекурсивный вызов , не разбирая элемены массива строки или объекты
@@ -240,10 +242,10 @@ if (isEndObject(oParams)){
 if (  isListObjects(oParams)  ){
   //alert('isListObjects\n'+JSON. stringify(oParams))
   for (let i = 0; i <  oParams.length; i++ ) {
-    let cnt = 1;
+    //let cnt = 1;
     //try {cnt =  oParams[i][COL_COUNT]} catch(e) {};//!!!!!! no !
     for (let j = 0; j < cnt; j++ ){//alert(i + ' из ' + oParams.length)
-           genRtm(index, oParams[i], delayMsec)
+           genRtm(index, oParams[i], oParams[i][COL_COUNT], delayMsec)
     };
   }  
 }  
@@ -254,11 +256,11 @@ if (isEndString(oParams)){
   for(key in glTrainings[index]["список дел"])
     if (key == oParams){
       //alert("find "+ key)
-       genRtm(index, glTrainings[index]["список дел"][oParams][COL_TODO], delayMsec);
+       genRtm(index, glTrainings[index]["список дел"][oParams][COL_TODO], glTrainings[index]["список дел"][oParams][COL_COUNT], delayMsec);
       return;
     } 
  let sToSay = typeof(oParams) == 'function' ? oParams()  : oParams
- glTest.push({"ind": glTest.length, "say":sToSay, "delay":delayMsec })
+ glTest.push({"index": glTest.length, "say":sToSay, "delay":delayMsec })
  //alert('glTest\n' +JSON.stringify(glTest))
 }
   
