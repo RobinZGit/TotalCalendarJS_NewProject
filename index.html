@@ -154,12 +154,15 @@ let glTrainings =
 "исходное дело": "ХОККЕЙ - РУКИ"
 ,
 "список дел": { 
-       "ХОККЕЙ - РУКИ": [  [1, "ТЕСТ ВЛОЖЕННОСТИ2"   ,2000,"мсек" ] ]
+       "ХОККЕЙ - РУКИ": [  [1, "ТЕСТ ВЛОЖЕННОСТИ3"   ,2000,"мсек" ] ]
        ,
        "ТЕСТ ВЛОЖЕННОСТИ":[2,[[ 3,"дддДЕЙСТВИЕ ДРИБЛИНГА",2500,"мсек"],[2,"yyyyДЕЙСТВИЕ ДРИБЛИНГА",2500,"мсек"]], 1500, 'мсек']
        ,
        // пример тупой вложенности ?? только одна ветка и можно было просто умножить количества в предке
       "ТЕСТ ВЛОЖЕННОСТИ2":[2,[[3,"пппппп",3500,"мсек"  ], [2,"   gggg",2500,"мсек"  ] ],1500,"мсек" ]
+      ,
+      "ТЕСТ ВЛОЖЕННОСТИ3": [1, [2, [3, "hhh"   ,2000,"мсек" ]   ,2000,"мсек" ]   ,2000,"мсек" ] 
+       
        }
 
     }
@@ -186,6 +189,7 @@ let cnt = pCnt;
 const isEndObject = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && ((typeof(params[COL_TODO]) == 'string') || (typeof(params[COL_TODO]) == 'function'))}
 const isEndString = (params) => {return ((typeof(params) == 'string') || (typeof(params) == 'function'))  }
 const isListObjects = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && (Array.isArray(params[0]))}
+const isWrappedObject = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && (Array.isArray(params[COL_TODO]))}
 
 // конечный объект - цикл по колву и рекурсивный вызов его объекта 
 // ...... объект с вложенным объектом - тоже цикл по колву и рекурсивный вызов объекта
@@ -201,8 +205,8 @@ if (isEndObject(oParams)){
 // массив строк  (по умолчанию колво 1 и задержка 0)- по сути тот же  объект с вложенным массивом
 //   т.е. можно делать массив строк и объектов вперемешку
 
-if (  isListObjects(oParams)  ){
-  //alert('isListObjects\n'+JSON. stringify(oParams))
+if (  isListObjects(oParams)  ||  isWrappedObject(oParams) ){
+  alert('isListObjects\n'+JSON. stringify(oParams))
   //for (let i = 0; i <  oParams.length; i++ ) {
     //let cnt = 1;
     //try {cnt =  oParams[i][COL_COUNT]} catch(e) {};//!!!!!! no !
