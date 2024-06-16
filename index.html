@@ -234,11 +234,12 @@ if (isEndString(oParams)){
 }
 
 // проговаривает либо показывает тренировку из входа в формате rtm,   
-//let glPlayProcessId = 0
+let glPlayProcessId = 0
 function play(aRtm, i, pPlayProcessId=0){
+  if (pPlayProcessId != glPlayProcessId) return; // остановка проигрывания при запуске нового (при навигации напр)
   //ВЕРНУТЬ  alert('!play!' + aRtm[i].say) //   показ картинок, вычисление онлайн, беззвучный режим
   //say(aRtm[i].say)
-  if (i < aRtm.length) setTimeout(()=>{play(aRtm, i+1)}, aRtm[i].delay)
+  if (i < aRtm.length) setTimeout(()=>{play(aRtm, i+1)}, aRtm[i].delay, pPlayProcessId)
 }
 
 
@@ -246,7 +247,8 @@ function play(aRtm, i, pPlayProcessId=0){
   glTest = []
   alert("click begin")
   run(0)
-  play(glTest,0)
+  glPlayProcessId +=1;
+  play(glTest,0, glPlayProcessId);
   //alert('glTest\n' +JSON.stringify(glTest))
   //console.log(glTest)
   document.getElementById("idTextTest").value +=JSON.stringify(glTest, null,'  ')
