@@ -192,7 +192,7 @@ let glTrainings =
 "исходное дело": "ХОККЕЙ - РУКИ"
 ,
 "список дел": { 
-       "ХОККЕЙ - РУКИ": [  [3, "ТЕСТ ВЛОЖЕННОСТИ2"   ,2000,"мсек" ] ]
+       "ХОККЕЙ - РУКИ": [  [1, "ТЕСТ ВЛОЖЕННОСТИ2"   ,2000,"мсек" ] ]
        ,
        "ТЕСТ ВЛОЖЕННОСТИ":[3,[[ 4,"дддДЕЙСТВИЕ ДРИБЛИНГА",2500,"мсек"],[5,"yyyyДЕЙСТВИЕ ДРИБЛИНГА",2500,"мсек"]], 1500, 'мсек']
        ,
@@ -241,7 +241,7 @@ if (  isListObjects(oParams)  ){
   //alert('isListObjects\n'+JSON. stringify(oParams))
   for (let i = 0; i <  oParams.length; i++ ) {
     let cnt = 1;
-    try {cnt =  oParams[i][COL_COUNT]} catch(e) {};  
+    //try {cnt =  oParams[i][COL_COUNT]} catch(e) {};//!!!!!! no !
     for (let j = 0; j < cnt; j++ ){//alert(i + ' из ' + oParams.length)
            genRtm(index, oParams[i], delayMsec)
     };
