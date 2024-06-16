@@ -192,7 +192,7 @@ let glTrainings =
 "исходное дело": "ХОККЕЙ - РУКИ"
 ,
 "список дел": { 
-       "ХОККЕЙ - РУКИ": [  [2,"ТЕСТ ВЛОЖЕННОСТИ"   ,2000,"мсек" ] ]
+       "ХОККЕЙ - РУКИ": [  [2,"ТЕСТ ВЛОЖЕННОСТИ00"   ,2000,"мсек" ] ]
        ,
        "ТЕСТ ВЛОЖЕННОСТИ":[3,[ 4,"дддДЕЙСТВИЕ ДРИБЛИНГА",2500,"мсек"],[5,"yyyyДЕЙСТВИЕ ДРИБЛИНГА",2500,"мсек"]]
        ,
@@ -242,7 +242,8 @@ const isListObjects = (params) => {return (typeof(params) == 'object') && (Array
 // конечный объект - цикл по колву и рекурсивный вызов его объекта 
 // ...... объект с вложенным объектом - тоже цикл по колву и рекурсивный вызов объекта
 if (isEndObject(oParams)){
-  //alert('NOt array\n'+JSON. stringify(oParams))
+  
+alert('isEndObject\n'+JSON. stringify(oParams))
   let cnt = 1;
   try {cnt =  oParams[COL_COUNT]} catch(e) {};  
   for (let i = 0; i <  cnt; i++ ) genRtm(index, oParams[COL_TODO], oParams[COL_DELAY])
@@ -253,7 +254,7 @@ if (isEndObject(oParams)){
 //   т.е. можно делать массив строк и объектов вперемешку
 
 if (  isListObjects(oParams)  ){
-  //alert('array\n'+JSON. stringify(oParams))
+  alert('isListObjects\n'+JSON. stringify(oParams))
   for (let i = 0; i <  oParams.length; i++ ) {
     let cnt = 1;
     try {cnt =  oParams[i][COL_COUNT]} catch(e) {};  
@@ -265,6 +266,7 @@ if (  isListObjects(oParams)  ){
   
   // строка - искать в листе, ессли нашли рекурсивно его объект иначе await say
 if (isEndString(oParams)){
+alert('isEndString\n'+JSON. stringify(oParams))
   for(key in glTrainings[index]["список дел"])
     if (key == oParams){
        genRtm(index, glTrainings[index]["список дел"][oParams], delayMsec);
@@ -272,7 +274,7 @@ if (isEndString(oParams)){
     } 
  let sToSay = typeof(oParams) == 'function' ? oParams()  : oParams
  glTest.push({"say":sToSay, "delay":delayMsec })
-   //alert(glTest)
+ //alert('glTest\n' +JSON.stringify(glTest))
 }
 
 /*  
@@ -327,7 +329,8 @@ if (typeof(oParams) == 'string'){
 
 // проговаривает либо показывает тренировку из входа в формате rtm,   
 function play(aRtm, i){
-  alert(aRtm[i].say) //   показ картинок, вычисление онлайн, беззвучный режим
+//alert('playt\n' +JSON.stringify(aRtm))
+  alert('!play!' + aRtm[i].say) //   показ картинок, вычисление онлайн, беззвучный режим
   if (i < aRtm.length) setTimeout(()=>{play(aRtm, i+1)}, aRtm[i].delay)
 }
 
@@ -336,7 +339,7 @@ function play(aRtm, i){
   alert("click begin")
   run(0)//JSON.parse(glTrainings)[0]["список дел"]["ХОККЕЙ - РУКИ"][0])
   play(glTest,0)
-  alert(glTest)
+  alert('glTest\n' +JSON.stringify(glTest))
   console.log(glTest)
 //  alert(  JSON.parse(glTrainings)[0] )
 }
