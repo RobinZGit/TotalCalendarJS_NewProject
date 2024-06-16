@@ -154,7 +154,15 @@ let glTrainings =
 "исходное дело": "ХОККЕЙ - РУКИ"
 ,
 "список дел": { 
-       "ХОККЕЙ - РУКИ": [  [1, "ТЕСТ ВЛОЖЕННОСТИ2"   ,2000,"мсек" ] ]
+       "ХОККЕЙ - РУКИ": [  [1, "цикл"   ,2000,"мсек" ] ]
+       ,
+       "цикл": [1, [[1,"у1",2000,"мсек"],[1,"у2",2000,"мсек"],[1,"у3",2000,"мсек"]], 1000, "мсек"]
+       ,
+       "у1": [1, [[1,"у11",2000,"мсек"],[1,"у12",2000,"мсек"],[1,"у13",2000,"мсек"]], 1000, "мсек"]
+       ,
+       "у2": [1, [[1,"у21",2000,"мсек"],[1,"у22",2000,"мсек"],[1,"у23",2000,"мсек"]] , 1000, "мсек"]
+       ,
+       "у3": [1, [[1,"у31",2000,"мсек"],[1,"у32",2000,"мсек"],[1,"у33",2000,"мсек"]], 1000, "мсек"]
        ,
        "ТЕСТ ВЛОЖЕННОСТИ":[2,[[ 3,"дддДЕЙСТВИЕ ДРИБЛИНГА",2500,"мсек"],[2,"yyyyДЕЙСТВИЕ ДРИБЛИНГА",2500,"мсек"]], 1500, 'мсек']
        ,
@@ -231,11 +239,11 @@ if (isEndString(oParams)){
   for(key in glTrainings[index]["список дел"])
     if (key == oParams){
       //alert("find "+ key)
-       genRtm(index, glTrainings[index]["список дел"][oParams][COL_TODO], glTrainings[index]["список дел"][oParams][COL_COUNT], delayMsec, sPath + " | " + key);
+       genRtm(index, glTrainings[index]["список дел"][oParams][COL_TODO], glTrainings[index]["список дел"][oParams][COL_COUNT], delayMsec, sPath + key + " / ");
       return;
     } 
  let sToSay = typeof(oParams) == 'function' ? oParams()  : oParams
- glTest.push({"index": glTest.length, "say":sToSay, "delay":delayMsec, "path": sPath })
+ glTest.push({"index": glTest.length, "say":sToSay, "delay":delayMsec, "path": sPath + sToSay + " / " })
  //alert('glTest\n' +JSON.stringify(glTest))
 }
   
