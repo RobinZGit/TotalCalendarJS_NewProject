@@ -235,8 +235,8 @@ function run(index){
 // oParams - объект вида{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}
 //           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
 function genRtm(index, oParams, delayMsec  = 0){
-const isEndObject = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && (typeof(params[COL_TODO]) == 'string')}
-const isEndString = (params) => {return (typeof(params) == 'string')}
+const isEndObject = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && ((typeof(params[COL_TODO]) == 'string') || (typeof(params[COL_TODO]) == 'function'))}
+const isEndString = (params) => {return ((typeof(params) == 'string') || (typeof(params) == 'function'))  }
 const isListObjects = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && (Array.isArray(params[0]))}
 
 // конечный объект - цикл по колву и рекурсивный вызов его объекта 
@@ -270,8 +270,8 @@ if (isEndString(oParams)){
        genRtm(index, glTrainings[index]["список дел"][oParams], delayMsec);
       return;
     } 
-    
-   say0(oParams, delayMsec)
+    let sToSay = typeof(oParams) == 'function' ? oParams()  : oParams
+   say0(sToSay, delayMsec)
    //alert(glTest)
 }
 
