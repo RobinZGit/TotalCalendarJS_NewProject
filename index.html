@@ -270,8 +270,8 @@ if (isEndString(oParams)){
        genRtm(index, glTrainings[index]["список дел"][oParams], delayMsec);
       return;
     } 
-    let sToSay = typeof(oParams) == 'function' ? oParams()  : oParams
-   say0(sToSay, delayMsec)
+ let sToSay = typeof(oParams) == 'function' ? oParams()  : oParams
+ glTest.push({"say":sToSay, "delay":delayMsec })
    //alert(glTest)
 }
 
@@ -325,10 +325,17 @@ if (typeof(oParams) == 'string'){
   
 }
 
+// проговаривает либо показывает тренировку из входа в формате rtm,   
+function play(aRtm, i){
+  alert(aRtm[i].say) //   показ картинок, вычисление онлайн, беззвучный режим
+  if (i < aRtm.length) setTimeout(()=>{play(aRtm, i+1)}, aRtm[i].delay)
+}
+
 
  function clickNew(){
   alert("click begin")
   run(0)//JSON.parse(glTrainings)[0]["список дел"]["ХОККЕЙ - РУКИ"][0])
+  play(glTest,0)
   alert(glTest)
   console.log(glTest)
 //  alert(  JSON.parse(glTrainings)[0] )
