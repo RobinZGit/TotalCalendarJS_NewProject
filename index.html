@@ -205,7 +205,7 @@ let cnt = pCnt;
 const isEndObject = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && ((typeof(params[COL_TODO]) == 'string') || (typeof(params[COL_TODO]) == 'function'))}
 const isEndString = (params) => {return ((typeof(params) == 'string') || (typeof(params) == 'function'))  }
 const isListObjects = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && (Array.isArray(params[0]))}
-const isWrappedObject = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && (Array.isArray(params[COL_TODO]))}
+//const isWrappedObject = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && (Array.isArray(params[COL_TODO]))}
 
 // конечный объект - цикл по колву и рекурсивный вызов его объекта 
 // ...... объект с вложенным объектом - тоже цикл по колву и рекурсивный вызов объекта
@@ -220,8 +220,7 @@ if (isEndObject(oParams)){
 // массив объектов - цикл по массиву и рекурсивный вызов , не разбирая элемены массива строки или объекты
 // массив строк  (по умолчанию колво 1 и задержка 0)- по сути тот же  объект с вложенным массивом
 //   т.е. можно делать массив строк и объектов вперемешку
-
-if (  isListObjects(oParams)  ||  isWrappedObject(oParams) ){
+if (  isListObjects(oParams) ){
   //alert('isListObjects\n'+JSON. stringify(oParams))
   //for (let i = 0; i <  oParams.length; i++ ) {
     //let cnt = 1;
@@ -232,6 +231,7 @@ if (  isListObjects(oParams)  ||  isWrappedObject(oParams) ){
     };
   }  
 }  
+
   
 // строка - искать в листе, ессли нашли рекурсивно его объект иначе await say
 if (isEndString(oParams)){
