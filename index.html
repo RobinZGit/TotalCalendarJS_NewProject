@@ -205,16 +205,12 @@ let cnt = pCnt;
 const isEndObject = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && ((typeof(params[COL_TODO]) == 'string') || (typeof(params[COL_TODO]) == 'function'))}
 const isEndString = (params) => {return ((typeof(params) == 'string') || (typeof(params) == 'function'))  }
 const isListObjects = (params) => {return !isEndObject(params) && !isEndString(params)}
-//(params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && (Array.isArray(params[0]))}
-//const isWrappedObject = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && (Array.isArray(params[COL_TODO]))}
+
 
 // конечный объект - цикл по колву и рекурсивный вызов его объекта 
-// ...... объект с вложенным объектом - тоже цикл по колву и рекурсивный вызов объекта
 if (isEndObject(oParams)){
   
 //alert('isEndObject\n'+JSON. stringify(oParams))
-  //let cnt = 1;
-  //try {cnt =  oParams[COL_COUNT]} catch(e) {};  
   for (let i = 0; i <  cnt; i++ ) genRtm(index, oParams[COL_TODO], oParams[COL_COUNT], oParams[COL_DELAY], sPath)
 }
 
@@ -223,9 +219,6 @@ if (isEndObject(oParams)){
 //   т.е. можно делать массив строк и объектов вперемешку
 if (  isListObjects(oParams) ){
   //alert('isListObjects\n'+JSON. stringify(oParams))
-  //for (let i = 0; i <  oParams.length; i++ ) {
-    //let cnt = 1;
-    //try {cnt =  oParams[i][COL_COUNT]} catch(e) {};//!!!!!! no !
   for (let j = 0; j < cnt; j++ ){//alert(i + ' из ' + oParams.length)
     for (let i = 0; i <  oParams.length; i++ ) {
       genRtm(index, oParams[i], oParams[i][COL_COUNT], delayMsec, sPath)
