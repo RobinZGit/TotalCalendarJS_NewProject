@@ -154,7 +154,7 @@ let glTrainings =
 "исходное дело": "ХОККЕЙ - РУКИ"
 ,
 "список дел": { 
-       "ХОККЕЙ - РУКИ": [  [1, "цикл"   ,2000,"мсек" ] ]
+       "ХОККЕЙ - РУКИ": [  [1, "ТЕСТ ВЛОЖЕННОСТИ3"   ,2000,"мсек" ] ]
        ,
        "цикл": [2, [[1,"у1",2000,"мсек"],[1,"у2",2000,"мсек"],[1,"у3",2000,"мсек"]], 1000, "мсек"]
        ,
@@ -204,7 +204,8 @@ let cnt = pCnt;
 ((pCnt == null) || (pCnt == undefined)) ? cnt = 1 : cnt = pCnt;
 const isEndObject = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && ((typeof(params[COL_TODO]) == 'string') || (typeof(params[COL_TODO]) == 'function'))}
 const isEndString = (params) => {return ((typeof(params) == 'string') || (typeof(params) == 'function'))  }
-const isListObjects = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && (Array.isArray(params[0]))}
+const isListObjects = (params) => {return !isEndObject(params) && !isEndString(params)}
+//(params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && (Array.isArray(params[0]))}
 //const isWrappedObject = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && (Array.isArray(params[COL_TODO]))}
 
 // конечный объект - цикл по колву и рекурсивный вызов его объекта 
