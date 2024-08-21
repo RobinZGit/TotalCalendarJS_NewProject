@@ -178,11 +178,14 @@ let glTrainings =
 
 function say0(str0){
   var str = str0
-  alert(str)
-  var utterance0 = new SpeechSynthesisUtterance(str);
-  utterance0.rate=1.5;//document.getElementById("inputRate").value;// 1.5; //скорость речи
+  //alert(str)
+  try{
+    var utterance0 = new SpeechSynthesisUtterance(str);
+    utterance0.rate=1.5;//document.getElementById("inputRate").value;// 1.5; //скорость речи
         //if (Gl_StopSpeakIfNext) window.speechSynthesis.cancel()
-  window.speechSynthesis.speak(utterance0);
+    window.speechSynthesis.speak(utterance0);
+  } catch(e) {alert('speech error    -   '+ str)}
+  //alert('ens say0')
 }
 
 //пускач - ц кл по исходному делу тренировки,  от поддела index  и далее до конца дела. можно использовать для навигации по трене
@@ -246,17 +249,21 @@ if (isEndString(oParams)){
 
 // проговаривает либо показывает тренировку из входа в формате rtm,   
 let glPlayProcessId = 0
-function play(aRtm, i, pPlayProcessId=0){
-  if (pPlayProcessId != glPlayProcessId) return; // остановка проигрывания при запуске нового (при навигации напр)
+function play(aRtm, i, pPlayProcessId=  glPlayProcessId){
+  //alert(JSON.stringify(aRtm))
+//  alert(pPlayProcessId)
+ // alert(glPlayProcessId)
+  //!!!!!! ОТЛАДИТЬ !!!!if (pPlayProcessId != glPlayProcessId) return; // остановка проигрывания при запуске нового (при навигации напр)
   //ВЕРНУТЬ  alert('!play!' + aRtm[i].say) //   показ картинок, вычисление онлайн, беззвучный режим
-  //say0(aRtm[i].say)
+  say0(aRtm[i].say)
+  //alert(aRtm.length)
   if (i < aRtm.length) setTimeout(()=>{play(aRtm, i+1)}, aRtm[i].delay, pPlayProcessId)
 }
 
 
  function clickNew(){
   glTest = []
-  alert("click begin")
+  //alert("click begin")
   run(0)
   glPlayProcessId +=1;
   play(glTest,0, glPlayProcessId);
