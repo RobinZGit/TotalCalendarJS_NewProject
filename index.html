@@ -141,7 +141,7 @@
 <script>
 //±+++++++++++NEW 
 
-let glTest = []
+let glSayList = []
         
 const COL_COUNT=0
 const COL_TODO=1
@@ -190,7 +190,7 @@ function say0(str0){
 
 //пускач - ц кл по исходному делу тренировки,  от поддела index  и далее до конца дела. можно использовать для навигации по трене
 function run(index){
-  glTest = []
+  glSayList = []
   //если не передали pParams - это пускач, начало разбора, ищем исходное дело
   let aParams = glTrainings[index]["список дел"][glTrainings[index]["исходное дело"]];
   document.getElementById("idTextTest").value =JSON.stringify(glTrainings[index]["список дел"],null,'  ')+ '\n\n----------------------\n'
@@ -241,7 +241,7 @@ if (isEndString(oParams)){
       return;
     } 
  let sToSay = typeof(oParams) == 'function' ? oParams()  : oParams
- glTest.push({"index": glTest.length, "say":sToSay, "delay":delayMsec, "path": sPath + sToSay })
+ glSayList.push({"index": glSayList.length, "say":sToSay, "delay":delayMsec, "path": sPath + sToSay })
  //alert('glTest\n' +JSON.stringify(glTest))
 }
   
@@ -262,14 +262,14 @@ function play(aRtm, i, pPlayProcessId=  glPlayProcessId){
 
 
  function clickNew(){
-  glTest = []
+  glSayList = []
   //alert("click begin")
   run(0)
   glPlayProcessId +=1;
-  play(glTest,0, glPlayProcessId);
+  play(glSayList,0, glPlayProcessId);
   //alert('glTest\n' +JSON.stringify(glTest))
   //console.log(glTest)
-  document.getElementById("idTextTest").value +=JSON.stringify(glTest, null,'  ')
+  document.getElementById("idTextTest").value +=JSON.stringify(glSayList, null,'  ')
 //  alert(  JSON.parse(glTrainings)[0] )
 }
 
