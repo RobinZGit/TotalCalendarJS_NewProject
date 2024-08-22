@@ -193,9 +193,8 @@ function run(index){
   glSayList = []
   //если не передали pParams - это пускач, начало разбора, ищем исходное дело
   let aParams = glTrainings[index]["список дел"][glTrainings[index]["исходное дело"]];
-  document.getElementById("idTextTest").value =JSON.stringify(glTrainings[index]["список дел"],null,'  ')+ '\n\n----------------------\n'
-  for(let i=0; i<aParams.length; i++) 
-     genRtm(index, aParams[i])
+  //document.getElementById("idTextTest").value =JSON.stringify(glTrainings[index]["список дел"],null,'  ')+ '\n\n----------------------\n'
+  for(let i=0; i<aParams.length; i++) genRtm(index, aParams[i])
   //await  aParams.forEach(p => {  oneOperation(index, p) } )
   
 }
@@ -265,11 +264,12 @@ function play(aRtm, i, pPlayProcessId=  glPlayProcessId){
   glSayList = []
   //alert("click begin")
   run(0)
+  document.getElementById("idTextTest").value +=JSON.stringify(glSayList, null,'  ')
   glPlayProcessId +=1;
   play(glSayList,0, glPlayProcessId);
   //alert('glTest\n' +JSON.stringify(glTest))
   //console.log(glTest)
-  document.getElementById("idTextTest").value +=JSON.stringify(glSayList, null,'  ')
+  //document.getElementById("idTextTest").value +=JSON.stringify(glSayList, null,'  ')
 //  alert(  JSON.parse(glTrainings)[0] )
 }
 
