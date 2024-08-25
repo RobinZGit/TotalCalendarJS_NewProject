@@ -284,12 +284,11 @@ function onSelectTrainNew(index){
   for(let i=0; i<aParams.length; i++) genRtm(index, aParams[i])
   //await  aParams.forEach(p => {  oneOperation(index, p) } )
   //кнопки навигации
-  /*
+  
   let navButtons = document.getElementById("navButtonsAreaId");
-  for(let i=0; <glSayList.length; i++){
-    
+  for(let i=0; i < glSayList.length; i++){
     let btn = document.createElement('button');
-    let txt = document.createTextNode('fffff');
+    let txt = document.createTextNode(glSayList[i].say + ' - ' + glSayList[i].delay + ' мсек.');
     btn.appendChild(txt);
     //btn.setAttribute('type', 'button');
     //btn.setAttribute('onclick','navigate('+value+')');
@@ -297,8 +296,10 @@ function onSelectTrainNew(index){
     btn.style.height='80px';
     //btn.setAttribute('id', 'buttonCurrentTrNew' + value);
     navButtonsAreaId.appendChild(btn);
+    let p = document.createElement('p');
+    navButtonsAreaId.appendChild(p);
   }
-  */
+  
 }
 
 function clickRunNew(){
