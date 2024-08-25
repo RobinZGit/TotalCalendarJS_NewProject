@@ -248,12 +248,11 @@ function genRtm(index, oParams, pCnt = 1, delayMsec  = 0, sPath = ''){
 }
 
 // проговаривает либо показывает тренировку из входа в формате rtm,   
-let glPlayProcessId = 0
-function play(aRtm, i, pPlayProcessId=  glPlayProcessId){
+function play(aRtm, i, pPlayProcessId){
   //alert(JSON.stringify(aRtm))
-//  alert(pPlayProcessId)
- // alert(glPlayProcessId)
-  //!!!!!! ОТЛАДИТЬ !!!!if (pPlayProcessId != glPlayProcessId) return; // остановка проигрывания при запуске нового (при навигации напр)
+  alert(pPlayProcessId)
+  alert(localStorage.getItem("instanceOfTraining"))
+ //if (pPlayProcessId != localStorage.getItem("instanceOfTraining")) return; // остановка проигрывания при запуске нового (при навигации напр)
   //ВЕРНУТЬ  alert('!play!' + aRtm[i].say) //   показ картинок, вычисление онлайн, беззвучный режим
   say0(aRtm[i].say)
   //alert(aRtm.length)
@@ -272,7 +271,7 @@ function say0(str0){
   //alert('ens say0')
 }
 
-//пускач - ц кл по исходному делу тренировки,  от поддела index  и далее до конца дела. можно использовать для навигации по трене
+//генерирует выбранную тренировку
 function onSelectTrainNew(index){
   glSayList = []
   //если не передали pParams - это пускач, начало разбора, ищем исходное дело
@@ -287,10 +286,11 @@ function clickRunNew(){
   glSayList = []
   //alert("click begin")
   let select = document.getElementById('selectAllTrainNew');
-  onSelectTrainNew(  document.getElementById('selectAllTrainNew').selectedIndex   )
+  let selectedIndex = document.getElementById('selectAllTrainNew').selectedIndex   
+  onSelectTrainNew(  selectedIndex   )
   document.getElementById("idTextTest").value +=JSON.stringify(glSayList, null,'  ')
-  glPlayProcessId +=1;
-  play(glSayList,0, glPlayProcessId);
+  localStorage.setItem("instanceOfTraining" , 1 + ( +localStorage.getItem("instanceOfTraining")));
+  play(glSayList,  selectedIndex, ( +localStorage.getItem("instanceOfTraining")));
   //alert('glTest\n' +JSON.stringify(glTest))
   //console.log(glTest)
   //document.getElementById("idTextTest").value +=JSON.stringify(glSayList, null,'  ')
@@ -298,6 +298,9 @@ function clickRunNew(){
 }
 
 function loadTrainDataNew(){
+  //
+  localStorage.setItem("instanceOfTraining",0);
+  //
   let select = document.getElementById('selectAllTrainNew');
   glTrainings.forEach((v,ind) => {
     option = document.createElement( 'option' );
