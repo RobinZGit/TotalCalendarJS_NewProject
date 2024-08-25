@@ -261,7 +261,8 @@ function onSelectTrainNew(index){
 function clickRunNew(){
   glSayList = []
   //alert("click begin")
-  onSelectTrainNew(0)
+  let select = document.getElementById('selectAllTrainNew');
+  onSelectTrainNew(  document.getElementById('selectAllTrainNew').selectedIndex   )
   document.getElementById("idTextTest").value +=JSON.stringify(glSayList, null,'  ')
   glPlayProcessId +=1;
   play(glSayList,0, glPlayProcessId);
