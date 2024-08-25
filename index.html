@@ -284,8 +284,8 @@ function onSelectTrainNew(index){
   for(let i=0; i<aParams.length; i++) genRtm(index, aParams[i])
   //await  aParams.forEach(p => {  oneOperation(index, p) } )
   //кнопки навигации
-  
   let navButtons = document.getElementById("navButtonsAreaId");
+  navButtons.innerHTML = '';
   for(let i=0; i < glSayList.length; i++){
     let btn = document.createElement('button');
     let txt = document.createTextNode(glSayList[i].say + ' - ' + glSayList[i].delay + ' мсек.');
@@ -303,10 +303,10 @@ function onSelectTrainNew(index){
 }
 
 function clickRunNew(){
-  glSayList = []
+  //glSayList = []
   let select = document.getElementById('selectAllTrainNew');
   let selectedIndex = document.getElementById('selectAllTrainNew').selectedIndex   
-  onSelectTrainNew(  selectedIndex   )
+  //onSelectTrainNew(  selectedIndex   )
   document.getElementById("idTextTest").value +=JSON.stringify(glSayList, null,'  ')
   localStorage.setItem("instanceOfTraining" , 1 + ( +localStorage.getItem("instanceOfTraining")));
   play(glSayList,  selectedIndex, ( +localStorage.getItem("instanceOfTraining")));
@@ -327,6 +327,7 @@ function loadTrainDataNew(){
     option.value = ind;
     select.add( option );
   })
+onSelectTrainNew(0)
 }
 
 
