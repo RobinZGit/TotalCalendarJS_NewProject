@@ -179,7 +179,7 @@ let glTrainings =
 "исходное дело": "ХОККЕЙ - РУКИ3"
 ,
 "список дел": { 
-       "ХОККЕЙ - РУКИ": [  [1, "ТЕСТ ВЛОЖЕННОСТИ3"   ,2000,"мсек" ] ]
+       "ХОККЕЙ - РУКИ3": [  [1, "ТЕСТ ВЛОЖЕННОСТИ3"   ,2000,"мсек" ] ]
        ,
        "цикл": [2, [[1,"у1",2000,"мсек"],[1,"у2",2000,"мсек"],[1,"у3",2000,"мсек"]], 1000, "мсек"]
        ,
@@ -287,7 +287,6 @@ function clickRunNew(){
   glSayList = []
   let select = document.getElementById('selectAllTrainNew');
   let selectedIndex = document.getElementById('selectAllTrainNew').selectedIndex   
-  alert(selectedIndex)
   onSelectTrainNew(  selectedIndex   )
   document.getElementById("idTextTest").value +=JSON.stringify(glSayList, null,'  ')
   localStorage.setItem("instanceOfTraining" , 1 + ( +localStorage.getItem("instanceOfTraining")));
