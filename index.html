@@ -21,6 +21,7 @@
   <select id="selectAllTrainNew"  style="height:100px;width:100%" onchange="onSelectTrain(this.selectedIndex,this.options[this.selectedIndex].text);" ></select>
   <button id="idModalButtonOkNew" style="height:50px;width:49%" onclick="clickRunNew()"> OK </button>
   <p></p>
+  <div id="navButtonsAreaId"></div>
   <textarea id="idTextTest" style="width:100%;height:200px;" > </textarea>
   ===============================
 <!--
@@ -206,6 +207,7 @@ let glTrainings =
 // oParams - объект вида{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}
 //           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
 function genRtm(index, oParams, pCnt = 1, delayMsec  = 0, sPath = ''){
+  
   let cnt = pCnt;  
   ((pCnt == null) || (pCnt == undefined)) ? cnt = 1 : cnt = pCnt;
   const isEndObject = (params) => {return (typeof(params) == 'object') && (Array.isArray(params)) && (params.length > 0) && (typeof(params[COL_COUNT]) == 'number') && ((typeof(params[COL_TODO]) == 'string') || (typeof(params[COL_TODO]) == 'function'))}
@@ -244,6 +246,7 @@ function genRtm(index, oParams, pCnt = 1, delayMsec  = 0, sPath = ''){
    let sToSay = typeof(oParams) == 'function' ? oParams()  : oParams
    glSayList.push({"index": glSayList.length, "say":sToSay, "delay":delayMsec, "path": sPath + sToSay })
    //alert('glTest\n' +JSON.stringify(glTest))
+
   }
 }
 
@@ -280,7 +283,22 @@ function onSelectTrainNew(index){
   //document.getElementById("idTextTest").value =JSON.stringify(glTrainings[index]["список дел"],null,'  ')+ '\n\n----------------------\n'
   for(let i=0; i<aParams.length; i++) genRtm(index, aParams[i])
   //await  aParams.forEach(p => {  oneOperation(index, p) } )
-  
+  //кнопки навигации
+  /*
+  let navButtons = document.getElementById("navButtonsAreaId");
+  for(let i=0; <glSayList.length; i++){
+    
+    let btn = document.createElement('button');
+    let txt = document.createTextNode('fffff');
+    btn.appendChild(txt);
+    //btn.setAttribute('type', 'button');
+    //btn.setAttribute('onclick','navigate('+value+')');
+    btn.style.background='yellow';
+    btn.style.height='80px';
+    //btn.setAttribute('id', 'buttonCurrentTrNew' + value);
+    navButtonsAreaId.appendChild(btn);
+  }
+  */
 }
 
 function clickRunNew(){
