@@ -250,9 +250,9 @@ function genRtm(index, oParams, pCnt = 1, delayMsec  = 0, sPath = ''){
 // проговаривает либо показывает тренировку из входа в формате rtm,   
 function play(aRtm, i, pPlayProcessId){
   //alert(JSON.stringify(aRtm))
-  alert(pPlayProcessId)
-  alert(localStorage.getItem("instanceOfTraining"))
- //if (pPlayProcessId != localStorage.getItem("instanceOfTraining")) return; // остановка проигрывания при запуске нового (при навигации напр)
+  //alert(pPlayProcessId)
+  //alert(localStorage.getItem("instanceOfTraining"))
+  //if (pPlayProcessId != localStorage.getItem("instanceOfTraining")) return; // остановка проигрывания при запуске нового (при навигации напр)
   //ВЕРНУТЬ  alert('!play!' + aRtm[i].say) //   показ картинок, вычисление онлайн, беззвучный режим
   say0(aRtm[i].say)
   //alert(aRtm.length)
@@ -284,7 +284,6 @@ function onSelectTrainNew(index){
 
 function clickRunNew(){
   glSayList = []
-  //alert("click begin")
   let select = document.getElementById('selectAllTrainNew');
   let selectedIndex = document.getElementById('selectAllTrainNew').selectedIndex   
   onSelectTrainNew(  selectedIndex   )
