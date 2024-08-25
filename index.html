@@ -258,6 +258,10 @@ function genRtm(index, oParams, pCnt = 1, delayMsec  = 0, sPath = ''){
 
   }
 }
+function stopSpeech(){
+  try { window.speechSynthesis.cancel() } catch(e) {}
+  localStorage.setItem("instanceOfTraining" , 1 + ( +localStorage.getItem("instanceOfTraining")));
+}
 
 // проговаривает либо показывает тренировку из входа в формате rtm,   
 function play(aRtm, i, pPlayProcessId){
@@ -282,8 +286,7 @@ function say0(str0){
 
 //генерирует выбранную тренировку
 function onSelectTrainNew(index){
-  try { window.speechSynthesis.cancel() } catch(e) {}
-  localStorage.setItem("instanceOfTraining" , 1 + ( +localStorage.getItem("instanceOfTraining")));
+  stopSpeech();
   glSayList = []
   //если не передали pParams - это пускач, начало разбора, ищем исходное дело
   let aParams = glTrainings[index]["список дел"][glTrainings[index]["исходное дело"]];
@@ -335,8 +338,7 @@ onSelectTrainNew(0)
 function navigateNew(i){ // для навигации по делам текущей трени
   //if (Gl_decodeExternalCallValue.length=0)
   //  alert ("Будет произведен переход на дело '"+Gl_aRithmLisp[i]+"'")
-  try{window.speechSynthesis.cancel()} catch(e){}
-  localStorage.setItem("instanceOfTraining" , 1 + ( +localStorage.getItem("instanceOfTraining")));
+  stopSpeech();
   play(glSayList,  i, ( +localStorage.getItem("instanceOfTraining")));
   
   for(var j=0; j<i;j++){
