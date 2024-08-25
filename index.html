@@ -303,7 +303,7 @@ function clickRunNew(){
   let selectedIndex = document.getElementById('selectAllTrainNew').selectedIndex;
   document.getElementById("idTextTest").value +=JSON.stringify(glSayList, null,'  ')
   localStorage.setItem("instanceOfTraining" , 1 + ( +localStorage.getItem("instanceOfTraining")));
-  play(glSayList,  selectedIndex, ( +localStorage.getItem("instanceOfTraining")));
+  play(glSayList,  0, ( +localStorage.getItem("instanceOfTraining")));
 }
 
 function loadTrainDataNew(){
@@ -325,7 +325,9 @@ function navigateNew(i){ // для навигации по делам текущ
   //if (Gl_decodeExternalCallValue.length=0)
   //  alert ("Будет произведен переход на дело '"+Gl_aRithmLisp[i]+"'")
   try{window.speechSynthesis.cancel()} catch(e){}
-
+  localStorage.setItem("instanceOfTraining" , 1 + ( +localStorage.getItem("instanceOfTraining")));
+  play(glSayList,  i, ( +localStorage.getItem("instanceOfTraining")));
+  
   for(var j=0; j<i;j++){
     try{
       document.getElementById('buttonCurrentTrNew' + j).style.background='green'
