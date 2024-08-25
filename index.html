@@ -263,6 +263,25 @@ function stopSpeech(){
   localStorage.setItem("instanceOfTraining" , 1 + ( +localStorage.getItem("instanceOfTraining")));
 }
 
+function showNavButtons(){
+   //кнопки навигации
+  let navButtons = document.getElementById("navButtonsAreaId");
+  navButtons.innerHTML = '';
+  for(let i=0; i < glSayList.length; i++){
+    let btn = document.createElement('button');
+    let txt = document.createTextNode(glSayList[i].say + ' - ' + glSayList[i].delay + ' мсек.');
+    btn.appendChild(txt);
+    //btn.setAttribute('type', 'button');
+    btn.setAttribute('id','buttonCurrentTrNew' + i);
+    btn.setAttribute('onclick','navigateNew('+i+')');
+    btn.style.background='yellow';
+    btn.style.height='80px';
+    navButtonsAreaId.appendChild(btn);
+    let p = document.createElement('div');
+    navButtonsAreaId.appendChild(p);
+  }
+}
+
 // проговаривает либо показывает тренировку из входа в формате rtm,   
 function play(aRtm, i, pPlayProcessId){
   if (localStorage.getItem("instanceOfTraining") != pPlayProcessId) return;
@@ -288,27 +307,14 @@ function say0(str0){
 function onSelectTrainNew(index){
   stopSpeech();
   glSayList = []
+  let navButtons = document.getElementById("navButtonsAreaId");
+  navButtons.innerHTML = '';
   //если не передали pParams - это пускач, начало разбора, ищем исходное дело
   let aParams = glTrainings[index]["список дел"][glTrainings[index]["исходное дело"]];
   //document.getElementById("idTextTest").value =JSON.stringify(glTrainings[index]["список дел"],null,'  ')+ '\n\n----------------------\n'
   for(let i=0; i<aParams.length; i++) genRtm(index, aParams[i])
   //await  aParams.forEach(p => {  oneOperation(index, p) } )
-  //кнопки навигации
-  let navButtons = document.getElementById("navButtonsAreaId");
-  navButtons.innerHTML = '';
-  for(let i=0; i < glSayList.length; i++){
-    let btn = document.createElement('button');
-    let txt = document.createTextNode(glSayList[i].say + ' - ' + glSayList[i].delay + ' мсек.');
-    btn.appendChild(txt);
-    //btn.setAttribute('type', 'button');
-    btn.setAttribute('id','buttonCurrentTrNew' + i);
-    btn.setAttribute('onclick','navigateNew('+i+')');
-    btn.style.background='yellow';
-    btn.style.height='80px';
-    navButtonsAreaId.appendChild(btn);
-    let p = document.createElement('div');
-    navButtonsAreaId.appendChild(p);
-  }
+ 
   
 }
 
@@ -316,7 +322,8 @@ function clickRunNew(){
   let select = document.getElementById('selectAllTrainNew');
   let selectedIndex = document.getElementById('selectAllTrainNew').selectedIndex;
   document.getElementById("idTextTest").value +=JSON.stringify(glSayList, null,'  ')
-  localStorage.setItem("instanceOfTraining" , 1 + ( +localStorage.getItem("instanceOfTraining")));
+  stopSpeech();
+  showNavButtons();
   play(glSayList,  0, ( +localStorage.getItem("instanceOfTraining")));
 }
 
@@ -331,7 +338,7 @@ function loadTrainDataNew(){
     option.value = ind;
     select.add( option );
   })
-onSelectTrainNew(0)
+  onSelectTrainNew(0)
 }
 
 
