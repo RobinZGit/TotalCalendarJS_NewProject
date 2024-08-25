@@ -22,6 +22,7 @@
   <select id="selectAllTrainNew"  style="height:100px;width:100%" onchange="onSelectTrainNew(this.selectedIndex);" >
   </select>
   <button id="idModalButtonOkNew" style="height:50px;width:49%" onclick="clickRunNew()"> RUN </button>
+  <span>Без звука:<input id = "idNoSoundNew" type="checkbox" onclick = "if (!this.checked) document.getElementById('idTextTrainNew').style.display='none'; else {document.getElementById('idTextTrainNew').style.display='block'; window.speechSynthesis.cancel()}"></span>
   <p></p>
   <div id="navButtonsAreaId"></div>
   <textarea id="idTextTest" style="width:100%;height:200px;" > </textarea>
