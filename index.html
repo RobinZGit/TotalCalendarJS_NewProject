@@ -14,12 +14,12 @@
 
 </head>
  
-<body  onload="loadTrainData()" >
+<body  onload="loadTrainDataNew()" >
   
   ===≈=========== NEW ===========
   
   <select id="selectAllTrainNew"  style="height:100px;width:100%" onchange="onSelectTrain(this.selectedIndex,this.options[this.selectedIndex].text);" ></select>
-  <button id="idModalButtonOkNew" style="height:50px;width:49%" onclick="clickNew()"> OK </button>
+  <button id="idModalButtonOkNew" style="height:50px;width:49%" onclick="clickRunNew()"> OK </button>
   <p></p>
   <textarea id="idTextTest" style="width:100%;height:200px;" > </textarea>
   ===============================
@@ -176,28 +176,7 @@ let glTrainings =
     }
     ] 
 
-function say0(str0){
-  var str = str0
-  //alert(str)
-  try{
-    var utterance0 = new SpeechSynthesisUtterance(str);
-    utterance0.rate=1.5;//document.getElementById("inputRate").value;// 1.5; //скорость речи
-        //if (Gl_StopSpeakIfNext) window.speechSynthesis.cancel()
-    window.speechSynthesis.speak(utterance0);
-  } catch(e) {alert('speech error    -   '+ str)}
-  //alert('ens say0')
-}
 
-//пускач - ц кл по исходному делу тренировки,  от поддела index  и далее до конца дела. можно использовать для навигации по трене
-function run(index){
-  glSayList = []
-  //если не передали pParams - это пускач, начало разбора, ищем исходное дело
-  let aParams = glTrainings[index]["список дел"][glTrainings[index]["исходное дело"]];
-  //document.getElementById("idTextTest").value =JSON.stringify(glTrainings[index]["список дел"],null,'  ')+ '\n\n----------------------\n'
-  for(let i=0; i<aParams.length; i++) genRtm(index, aParams[i])
-  //await  aParams.forEach(p => {  oneOperation(index, p) } )
-  
-}
 
 // oParams - объект вида{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}
 //           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
@@ -256,11 +235,33 @@ function play(aRtm, i, pPlayProcessId=  glPlayProcessId){
   if (i < aRtm.length) setTimeout(()=>{play(aRtm, i+1)}, aRtm[i].delay, pPlayProcessId)
 }
 
+function say0(str0){
+  var str = str0
+  //alert(str)
+  try{
+    var utterance0 = new SpeechSynthesisUtterance(str);
+    utterance0.rate=1.5;//document.getElementById("inputRate").value;// 1.5; //скорость речи
+        //if (Gl_StopSpeakIfNext) window.speechSynthesis.cancel()
+    window.speechSynthesis.speak(utterance0);
+  } catch(e) {alert('speech error    -   '+ str)}
+  //alert('ens say0')
+}
 
- function clickNew(){
+//пускач - ц кл по исходному делу тренировки,  от поддела index  и далее до конца дела. можно использовать для навигации по трене
+function onSelectTrainNew(index){
+  glSayList = []
+  //если не передали pParams - это пускач, начало разбора, ищем исходное дело
+  let aParams = glTrainings[index]["список дел"][glTrainings[index]["исходное дело"]];
+  //document.getElementById("idTextTest").value =JSON.stringify(glTrainings[index]["список дел"],null,'  ')+ '\n\n----------------------\n'
+  for(let i=0; i<aParams.length; i++) genRtm(index, aParams[i])
+  //await  aParams.forEach(p => {  oneOperation(index, p) } )
+  
+}
+
+function clickRunNew(){
   glSayList = []
   //alert("click begin")
-  run(0)
+  onSelectTrainNew(0)
   document.getElementById("idTextTest").value +=JSON.stringify(glSayList, null,'  ')
   glPlayProcessId +=1;
   play(glSayList,0, glPlayProcessId);
@@ -268,6 +269,16 @@ function play(aRtm, i, pPlayProcessId=  glPlayProcessId){
   //console.log(glTest)
   //document.getElementById("idTextTest").value +=JSON.stringify(glSayList, null,'  ')
 //  alert(  JSON.parse(glTrainings)[0] )
+}
+
+function loadTrainDataNew(){
+  let select = document.getElementById('selectAllTrainNew');
+  glTrainings.forEach((v,ind) => {
+    option = document.createElement( 'option' );
+    option.text = v["исходное дело"];
+    option.value = ind;
+    select.add( option );
+  })
 }
 
 
