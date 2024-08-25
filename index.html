@@ -18,7 +18,7 @@
   
   ===≈=========== NEW ===========
   
-  <select id="selectAllTrainNew"  style="height:100px;width:100%" onchange="onSelectTrain(this.selectedIndex,this.options[this.selectedIndex].text);" ></select>
+  <select id="selectAllTrainNew"  style="height:100px;width:100%" onchange="onSelectTrainNew(this.selectedIndex);" ></select>
   <button id="idModalButtonOkNew" style="height:50px;width:49%" onclick="clickRunNew()"> OK </button>
   <p></p>
   <div id="navButtonsAreaId"></div>
@@ -296,7 +296,7 @@ function onSelectTrainNew(index){
     btn.style.height='80px';
     //btn.setAttribute('id', 'buttonCurrentTrNew' + value);
     navButtonsAreaId.appendChild(btn);
-    let p = document.createElement('p');
+    let p = document.createElement('div');
     navButtonsAreaId.appendChild(p);
   }
   
