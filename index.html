@@ -261,10 +261,13 @@ function genRtm(index, oParams, pCnt = 1, delayMsec  = 0, sPath = ''){
 
 // проговаривает либо показывает тренировку из входа в формате rtm,   
 function play(aRtm, i, pPlayProcessId){
+  //alert(localStorage.getItem("instanceOfTraining"))
+  //alert(pPlayProcessId)
+  if (localStorage.getItem("instanceOfTraining") != pPlayProcessId) return;
   //ВЕРНУТЬ  alert('!play!' + aRtm[i].say) //   показ картинок, вычисление онлайн, беззвучный режим
   say0(aRtm[i].say);
   document.getElementById('buttonCurrentTrNew' + i).style.background='green';
-  if (i < aRtm.length) setTimeout(()=>{play(aRtm, i+1)}, aRtm[i].delay, pPlayProcessId)
+  if (i < aRtm.length) setTimeout(()=>{play(aRtm, i+1, pPlayProcessId)}, aRtm[i].delay)
 }
 
 function say0(str0){
