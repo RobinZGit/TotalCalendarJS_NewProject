@@ -252,13 +252,8 @@ function genRtm(index, oParams, pCnt = 1, delayMsec  = 0, sPath = ''){
 
 // проговаривает либо показывает тренировку из входа в формате rtm,   
 function play(aRtm, i, pPlayProcessId){
-  //alert(JSON.stringify(aRtm))
-  //alert(pPlayProcessId)
-  //alert(localStorage.getItem("instanceOfTraining"))
-  //if (pPlayProcessId != localStorage.getItem("instanceOfTraining")) return; // остановка проигрывания при запуске нового (при навигации напр)
   //ВЕРНУТЬ  alert('!play!' + aRtm[i].say) //   показ картинок, вычисление онлайн, беззвучный режим
   say0(aRtm[i].say)
-  //alert(aRtm.length)
   if (i < aRtm.length) setTimeout(()=>{play(aRtm, i+1)}, aRtm[i].delay, pPlayProcessId)
 }
 
@@ -291,7 +286,8 @@ function onSelectTrainNew(index){
     let txt = document.createTextNode(glSayList[i].say + ' - ' + glSayList[i].delay + ' мсек.');
     btn.appendChild(txt);
     //btn.setAttribute('type', 'button');
-    //btn.setAttribute('onclick','navigate('+value+')');
+    btn.setAttribute('id','buttonCurrentTrNew' + i);
+    btn.setAttribute('onclick','navigateNew('+i+')');
     btn.style.background='yellow';
     btn.style.height='80px';
     //btn.setAttribute('id', 'buttonCurrentTrNew' + value);
@@ -303,17 +299,11 @@ function onSelectTrainNew(index){
 }
 
 function clickRunNew(){
-  //glSayList = []
   let select = document.getElementById('selectAllTrainNew');
-  let selectedIndex = document.getElementById('selectAllTrainNew').selectedIndex   
-  //onSelectTrainNew(  selectedIndex   )
+  let selectedIndex = document.getElementById('selectAllTrainNew').selectedIndex;
   document.getElementById("idTextTest").value +=JSON.stringify(glSayList, null,'  ')
   localStorage.setItem("instanceOfTraining" , 1 + ( +localStorage.getItem("instanceOfTraining")));
   play(glSayList,  selectedIndex, ( +localStorage.getItem("instanceOfTraining")));
-  //alert('glTest\n' +JSON.stringify(glTest))
-  //console.log(glTest)
-  //document.getElementById("idTextTest").value +=JSON.stringify(glSayList, null,'  ')
-//  alert(  JSON.parse(glTrainings)[0] )
 }
 
 function loadTrainDataNew(){
@@ -330,6 +320,25 @@ function loadTrainDataNew(){
 onSelectTrainNew(0)
 }
 
+
+function navigateNew(i){ // для навигации по делам текущей трени
+  //if (Gl_decodeExternalCallValue.length=0)
+  //  alert ("Будет произведен переход на дело '"+Gl_aRithmLisp[i]+"'")
+  try{window.speechSynthesis.cancel()} catch(e){}
+
+  for(var j=0; j<i;j++){
+    try{
+      document.getElementById('buttonCurrentTrNew' + j).style.background='green'
+     } catch(e) {}
+  }
+  for(var k=i; k<Gl_aRithmLisp.length;k++){
+    try{
+      document.getElementById('buttonCurrentTrNew' + k).style.background='yellow'
+    } catch(e) {}
+  }
+  //GlnDelta = 3000;// Number(Gl_aRithmLisp[i-1]);
+  //GlnInd =i
+}
 
 
 
