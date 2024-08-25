@@ -253,7 +253,8 @@ function genRtm(index, oParams, pCnt = 1, delayMsec  = 0, sPath = ''){
 // проговаривает либо показывает тренировку из входа в формате rtm,   
 function play(aRtm, i, pPlayProcessId){
   //ВЕРНУТЬ  alert('!play!' + aRtm[i].say) //   показ картинок, вычисление онлайн, беззвучный режим
-  say0(aRtm[i].say)
+  say0(aRtm[i].say);
+  document.getElementById('buttonCurrentTrNew' + i).style.background='green';
   if (i < aRtm.length) setTimeout(()=>{play(aRtm, i+1)}, aRtm[i].delay, pPlayProcessId)
 }
 
@@ -290,7 +291,6 @@ function onSelectTrainNew(index){
     btn.setAttribute('onclick','navigateNew('+i+')');
     btn.style.background='yellow';
     btn.style.height='80px';
-    //btn.setAttribute('id', 'buttonCurrentTrNew' + value);
     navButtonsAreaId.appendChild(btn);
     let p = document.createElement('div');
     navButtonsAreaId.appendChild(p);
