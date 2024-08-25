@@ -283,6 +283,7 @@ function say0(str0){
 //генерирует выбранную тренировку
 function onSelectTrainNew(index){
   try { window.speechSynthesis.cancel() } catch(e) {}
+  localStorage.setItem("instanceOfTraining" , 1 + ( +localStorage.getItem("instanceOfTraining")));
   glSayList = []
   //если не передали pParams - это пускач, начало разбора, ищем исходное дело
   let aParams = glTrainings[index]["список дел"][glTrainings[index]["исходное дело"]];
