@@ -338,18 +338,6 @@ function onSelectTrainNew(index){
   //document.getElementById("idTextTest").value =JSON.stringify(glTrainings[index]["список дел"],null,'  ')+ '\n\n----------------------\n'
   for(let i=0; i<aParams.length; i++) genRtm(index, aParams[i])
   //await  aParams.forEach(p => {  oneOperation(index, p) } )
- 
-  
-}
-
-function clickRunNew(){
-  let select = document.getElementById('selectAllTrainNew');
-  let selectedIndex = document.getElementById('selectAllTrainNew').selectedIndex;
-  document.getElementById("idTextTest").value +=JSON.stringify(glSayList, null,'  ')
-  stopSpeech();
-  showNavButtons();
-  play(glSayList,  0, ( +localStorage.getItem("instanceOfTraining")));
-  
   //----------------------------------
   /*
   let select = document.getElementById('selectAllTrainNew');
@@ -360,6 +348,23 @@ function clickRunNew(){
       play(glSayList,  0, ind);
     })
   */
+  
+}
+
+function clickRunNew(){
+  let select = document.getElementById('selectAllTrainNew');
+  let selectedIndex = document.getElementById('selectAllTrainNew').selectedIndex;
+  document.getElementById("idTextTest").value +=JSON.stringify(glSayList, null,'  ')
+  stopSpeech();
+  showNavButtons();
+  play(glSayList,  0, ( +localStorage.getItem("instanceOfTraining")));
+  //----- new multi
+  /*
+  glSayListMulti.forEach((v,i) => {
+     play(v.arr,  0, v.trainInstance);
+  })
+  */
+
          
 }
 
