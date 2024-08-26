@@ -19,7 +19,7 @@
   ===≈=========== NEW ===========
   
   
-  <select id="selectAllTrainNew"  style="height:100px;width:100%" onchange="onSelectTrainNew(this.selectedIndex);" >
+  <select id="selectAllTrainNew" multiple="multiple"  style="height:100px;width:100%" onchange="onSelectTrainNew(this.selectedIndex);" >
   </select>
   <button id="idModalButtonOkNew" style="height:50px;width:49%" onclick="clickRunNew()"> RUN </button>
   <span>Без звука:<input id = "idNoSoundNew" type="checkbox" onclick = "if (!this.checked) document.getElementById('idTextTrainNew').style.display='none'; else {document.getElementById('idTextTrainNew').style.display='block'; window.speechSynthesis.cancel()}"></span>
@@ -215,6 +215,7 @@ let glTrainings =
     ] 
 
 
+let glAInstance = [];
 
 // oParams - объект вида{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}
 //           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
@@ -261,8 +262,13 @@ function genRtm(index, oParams, pCnt = 1, delayMsec  = 0, sPath = ''){
 
   }
 }
-function stopSpeech(){
+function stopSpeech(trainInstance = -1){
   try { window.speechSynthesis.cancel() } catch(e) {}
+  if (trainInstance  < 0) glAInstance = [];
+  else {
+    let ind = glAInstance.indexOf(trainInstance);
+    if ( ind >= 0) glAInstance.splice(ind,1);
+  }
   localStorage.setItem("instanceOfTraining" , 1 + ( +localStorage.getItem("instanceOfTraining")));
 }
 
