@@ -282,7 +282,7 @@ function stopSpeech(trainInstance = -1){
   localStorage.setItem("instanceOfTraining" , 1 + ( +localStorage.getItem("instanceOfTraining")));
 }
 
-function showNavButtons(){
+function showNavButtons(trainInstance = -1){
    //кнопки навигации
   let navButtons = document.getElementById("navButtonsAreaId");
   navButtons.innerHTML = '';
@@ -291,8 +291,8 @@ function showNavButtons(){
     let txt = document.createTextNode(glSayList[i].say + ' - ' + glSayList[i].delay + ' мсек.');
     btn.appendChild(txt);
     //btn.setAttribute('type', 'button');
-    btn.setAttribute('id','buttonCurrentTrNew' + i);
-    btn.setAttribute('onclick','navigateNew('+i+')');
+    btn.setAttribute('id','buttonCurrentTrNew' + i); // !! + trainInstance !!
+    btn.setAttribute('onclick','navigateNew('+i+','+ trainInstance +')');
     btn.style.background='yellow';
     //btn.style.visibility='visible';
     btn.style.height='80px';
@@ -387,12 +387,12 @@ function loadTrainDataNew(){
 }
 
 
-function navigateNew(i){ // для навигации по делам текущей трени
+function navigateNew(i, trainInstance = -1){ // для навигации по делам текущей трени
   //if (Gl_decodeExternalCallValue.length=0)
   //  alert ("Будет произведен переход на дело '"+Gl_aRithmLisp[i]+"'")
-  stopSpeech();
+  stopSpeech(trainInstance);
   play(glSayList,  i, ( +localStorage.getItem("instanceOfTraining")));
-  
+  //new multi   play(glSayList,  i, trainInstance);
   for(var j=0; j<i;j++){
     try{
       let btn = document.getElementById('buttonCurrentTrNew' + j);
