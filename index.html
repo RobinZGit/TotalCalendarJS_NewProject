@@ -339,6 +339,18 @@ function clickRunNew(){
   stopSpeech();
   showNavButtons();
   play(glSayList,  0, ( +localStorage.getItem("instanceOfTraining")));
+  
+  //----------------------------------
+  /*
+  let select = document.getElementById('selectAllTrainNew');
+  select.options.forEach((v, ind) => if (v.selected) {
+      let vInstance = 'instanceOfTraining' + ind;
+      stopSpeech(ind);
+      showNavButtons(ind);
+      play(glSayList,  0, ind);
+    })
+  */
+         
 }
 
 function loadTrainDataNew(){
