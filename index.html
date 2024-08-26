@@ -294,7 +294,8 @@ function showNavButtons(){
 
 // проговаривает либо показывает тренировку из входа в формате rtm,   
 function play(aRtm, i, pPlayProcessId){
-  if (localStorage.getItem("instanceOfTraining") != pPlayProcessId) return;
+  if (localStorage.getItem("instanceOfTraining") != pPlayProcessId) return; //УБРАТЬ
+  //!!!  if (glAInstance.indexOf(pPlayProcessId) < 0) return;
   //ВЕРНУТЬ  alert('!play!' + aRtm[i].say) //   показ картинок, вычисление онлайн, беззвучный режим
   say0(aRtm[i].say);
   let btn = document.getElementById('buttonCurrentTrNew' + i);
@@ -317,6 +318,7 @@ function say0(str0){
 
 //генерирует выбранную тренировку
 function onSelectTrainNew(index){
+  //alert(1)
   stopSpeech();
   glSayList = []
   let navButtons = document.getElementById("navButtonsAreaId");
