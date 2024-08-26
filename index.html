@@ -361,6 +361,10 @@ function clickRunNew(){
   //----- new multi
   /*
   glSayListMulti.forEach((v,i) => {
+     stopSpeech(v.trainInstance);
+     //showNavButtons(v.trainInstance);
+  })
+  glSayListMulti.forEach((v,i) => {
      play(v.arr,  0, v.trainInstance);
   })
   */
