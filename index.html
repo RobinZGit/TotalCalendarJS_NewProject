@@ -220,7 +220,7 @@ let glAInstance = [];
 
 // oParams - объект вида{"кол-во":400,"делать":"ДЕЙСТВИЕ ДРИБЛИНГА","задержка":1500,"units":"мсек"}
 //           где "делать" - строка либо функция либо объект такого же вида (мб объект эо лишнее) либо массив объектов такого же вида
-function genRtm(index, oParams, pCnt = 1, delayMsec  = 0, sPath = ''){
+function genRtm(index, oParams, pCnt = 1, delayMsec  = 0, sPath = '', instanceOfTraining = -1){
   
   let cnt = pCnt;  
   ((pCnt == null) || (pCnt == undefined)) ? cnt = 1 : cnt = pCnt;
@@ -258,7 +258,16 @@ function genRtm(index, oParams, pCnt = 1, delayMsec  = 0, sPath = ''){
        return;
      } 
    let sToSay = typeof(oParams) == 'function' ? oParams()  : oParams
-   glSayList.push({"index": glSayList.length, "say":sToSay, "delay":delayMsec, "path": sPath + sToSay })
+   if (instanceOfTraining >= 0){
+     let ind = -1;
+     glSayListMulti.forEach((v,i) => {if(v.trainInstance == trainInstance) ind = i});
+     if (ind < 0){
+       glSayListMulti.push({"trainInstance": trainInstance, "arr":[  {"index": 0, "say":sToSay, "delay":delayMsec, "path": sPath + sToSay }]});
+       ind = 0;
+     } else
+       glSayListMulti[ind].arr.push({"index": glSayListMulti[ind].arr.length, "say":sToSay, "delay":delayMsec, "path": sPath + sToSay })
+   } else 
+     glSayList.push({"index": glSayList.length, "say":sToSay, "delay":delayMsec, "path": sPath + sToSay })
    //alert('glTest\n' +JSON.stringify(glTest))
 
   }
